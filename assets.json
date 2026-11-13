@@ -1,0 +1,18 @@
+{
+  "style_prefix": "photorealistic luxury penthouse lounge photography, evening cityscape at sunset, black and amber cinematic light, warm practical lamps, dark timber and glass, natural proportions, no writing, no watermark, no UI",
+  "assets": [
+    {
+      "id":"hero_main",
+      "slot":"div.hero-shell",
+      "file":"assets/hero-lounge.webp",
+      "gen_size":"1536x1024",
+      "slot_ratio":"1440:758",
+      "object_fit":"cover",
+      "object_position":"50% 59%",
+      "subject":"Dark premium lounge with floor-to-ceiling windows, city sunset, brown leather armchair on right and crystal decanter on low central table",
+      "subject_frame_pct":64,
+      "camera":"interior wide angle, eye-level, chair on right, dark negative space on left",
+      "prompt":"photorealistic luxury penthouse lounge photography, evening cityscape at sunset, black and amber cinematic light, warm practical lamps, dark timber and glass, natural proportions, no writing, no watermark, no UI, wide angle, chair on right, table center, dark negative space on left"
+    }
+  ]
+}
