@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="styles.css">
   <script src="script.js" defer></script>
 </head>
-<body>
+<body class="access-locked">
   <svg class="svg-library" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
     <symbol id="icon-bars" viewBox="0 0 24 24"><path d="M3 21v-5h4v5M10 21V10h4v11M17 21V3h4v18M2 21h20"/></symbol>
     <symbol id="icon-arrow" viewBox="0 0 24 24"><path d="M3.5 12h17M14 5.5l6.5 6.5-6.5 6.5"/></symbol>
@@ -53,7 +53,7 @@
       <img class="hero-photo" src="assets/hero_main.webp" width="1536" height="1024" alt="Luxusní interiér s výhledem na město při západu slunce" fetchpriority="high">
       <div class="hero-veil" aria-hidden="true"></div>
       <div class="hero-copy">
-        <p class="eyebrow">VYBRANÉ INVESTIČNÍ PŘÍLEŽITOSTI OD 1 MIL. KČ</p>
+        <p class="eyebrow">VYBRANÉ INVESTIČNÍ PŘÍLEŽITOSTI OD&nbsp;1&nbsp;MIL.&nbsp;KČ</p>
         <div class="gold-rule" aria-hidden="true"></div>
         <h1 id="heroHeading"><span>Vybrané projekty.</span><span class="highlight">Nové investiční možnosti.</span></h1>
         <p class="hero-description">Získejte přístup k vybraným investičním projektům s různými výnosy, podmínkami a formami zajištění. Objevujte nové příležitosti a vybírejte si podle vlastních investičních cílů.</p>
@@ -61,7 +61,7 @@
         <p class="access-note">Přístup do klubu podléhá individuálnímu schválení.</p>
       </div>
 
-      <aside class="application-card" id="applicationCard" aria-labelledby="formHeading">
+      <aside class="application-card" id="applicationCard" aria-labelledby="formHeading" hidden>
         <div id="formInitial">
           <h2 id="formHeading">Žádost o přístup</h2>
           <div class="form-rule" aria-hidden="true"></div>
@@ -88,8 +88,8 @@
         </div>
         <div id="formSuccess" class="flow-panel" hidden>
           <div class="success-icon"><svg aria-hidden="true"><use href="#icon-check"/></svg></div>
-          <h2>Ukázka dokončena</h2>
-          <p class="flow-text">Zadaný kód je správný. Toto je pouze funkční demonstrace. Žádné údaje nebyly odeslány a skutečná žádost o přístup nevznikla.</p>
+          <h2>Přístup udělen</h2>
+          <p class="flow-text">Děkujeme, ověření proběhlo. V horní liště je teď dostupné menu klubu.</p><p class="flow-text"><small>Ukázkový režim: žádné údaje nebyly odeslány.</small></p>
           <button id="restartButton" class="form-submit" type="button">NOVÁ ŽÁDOST <svg aria-hidden="true"><use href="#icon-arrow"/></svg></button>
         </div>
       </aside>

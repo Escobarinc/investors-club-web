@@ -10,9 +10,10 @@ Otevřete `index.html` v prohlížeči, případně spusťte lokální server ve
 
 ## Co je funkční
 
-- Navigace O klubu, Vybrané projekty, Jak to funguje (informační dialogy), Kontakt (přejde na formulář).
-- Formulář Žádost o přístup: kontrola jména, telefonu, e-mailu a investičního kapitálu.
-- Ukázkový krok ověření SMS kódem (demo kód `123456`, žádná SMS se neposílá) a potvrzení.
+- Na začátku je vidět jen úvod s tlačítkem „Požádat o přístup k projektům“, bez menu a bez formuláře.
+- Kliknutí na tlačítko otevře formulář Žádost o přístup (kontrola jména, telefonu, e-mailu a investičního kapitálu).
+- Ukázkový krok ověření SMS kódem (demo kód `123456`, žádná SMS se neposílá).
+- Po udělení přístupu se zobrazí menu (O klubu, Vybrané projekty, Jak to funguje, Kontakt). Prohlížeč si přístup pamatuje (localStorage `ic-access-granted`).
 - Mobilní menu a responzivní rozložení.
 
 ## Co není připojené

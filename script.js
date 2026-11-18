@@ -50,9 +50,20 @@ toggleMenu.addEventListener('click', () => {
   toggleMenu.setAttribute('aria-label', open ? 'Zavřít nabídku' : 'Otevřít nabídku');
 });
 
+const ACCESS_KEY = 'ic-access-granted';
+function unlockMenu() {
+  document.body.classList.remove('access-locked');
+}
+try { if (localStorage.getItem(ACCESS_KEY) === '1') unlockMenu(); } catch (e) {}
+
 function focusApplication() {
   closeMenu();
   if (dialog.open) dialog.close();
+  const card = byId('applicationCard');
+  if (card.hidden) {
+    card.hidden = false;
+    card.classList.add('is-revealed');
+  }
   byId('applicationCard').scrollIntoView({behavior: 'smooth', block: 'center'});
   if (!initial.hidden) window.setTimeout(() => fields.name.focus({preventScroll:true}), 200);
 }
@@ -135,6 +146,8 @@ function demoVerify() {
   if (good) {
     verify.hidden = true;
     success.hidden = false;
+    unlockMenu();
+    try { localStorage.setItem(ACCESS_KEY, '1'); } catch (e) {}
     byId('restartButton').focus();
   } else {
     byId('verificationCode').focus();
