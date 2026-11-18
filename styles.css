@@ -653,3 +653,11 @@ html[data-pismo] .m-num { font-weight: 300; }
 @media (min-width: 821px) and (max-height: 860px) { html[data-pismo] .hero h1 { font-size: 36.8px; } }
 @media (min-width: 1121px) { html[data-pismo] .hero h1 { font-size: 35.2px; } html[data-pismo="sora"] .hero h1 { font-size: 32px; } }
 @media (min-width: 821px) and (max-height: 860px) { html[data-pismo] .hero h1 { font-size: 33.6px; } html[data-pismo="sora"] .hero h1 { font-size: 30.4px; } }
+
+/* Fotka zarovnaná doprava – věže za oknem vždy vidět */
+@media (min-width: 821px) {
+  html:not([data-varianta="svetla"]) .hero-shell { background-position: 0 0, 0 0, 100% center !important; }
+}
+@media (min-width: 821px) and (max-width: 1200px) {
+  html:not([data-varianta="svetla"]) .hero-shell { background-image: linear-gradient(180deg, rgba(9,11,17,.5) 0%, rgba(9,11,17,0) 130px), linear-gradient(90deg, rgba(9,11,17,.94) 0%, rgba(9,11,17,.9) 50%, rgba(9,11,17,.6) 62%, rgba(9,11,17,.15) 74%, rgba(9,11,17,0) 82%), url("assets/hero-office.webp") !important; }
+}
