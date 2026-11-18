@@ -710,3 +710,11 @@ html[data-pismo] .m-num { font-weight: 300; }
 
 /* Přihlášený člen: žádost o přístup už se nezobrazuje */
 body.is-member .cta-hero, body.is-member .access-note, body.is-member #access-card { display: none !important; }
+
+/* Přihlášený člen: pryč celý úvod (fotka, texty, pás výhod), zůstává jen hlavička s menu a hned pod ní klub s dotazníkem */
+body.is-member .hero-shell { height: auto !important; min-height: 0 !important; max-height: none !important; background: #0c0d12 !important; border-bottom: 1px solid rgba(205,214,226,.12); }
+body.is-member .hero-shell > main, body.is-member section#hero, body.is-member section#features { display: none !important; }
+body.is-member .m-wrap { padding-top: 56px; }
+@media (max-width: 540px) { body.is-member .m-wrap { padding-top: 32px; } }
+@media (max-width: 820px) { header.site-header .login-btn, header.site-header .menu-toggle { align-self: center; margin-top: 0; } }
+@media (max-width: 820px) { header.site-header .brand { align-self: center; } }

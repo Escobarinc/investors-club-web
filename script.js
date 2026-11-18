@@ -50,7 +50,7 @@
     loginBtn.dataset.open = on ? 'logout' : 'login';
     loginLabel.textContent = on ? 'Odhlásit' : 'Login';
     try { on ? localStorage.setItem(MEMBER_KEY, '1') : localStorage.removeItem(MEMBER_KEY); } catch (e) { /* storage blocked */ }
-    if (on && scroll) requestAnimationFrame(() => members.scrollIntoView({ behavior: 'smooth', block: 'start' }));
+    if (on && scroll) window.scrollTo({ top: 0, behavior: 'smooth' });
     if (!on) window.scrollTo({ top: 0, behavior: 'smooth' });
   }
   const unlockMenu = () => setMember(true, false);
