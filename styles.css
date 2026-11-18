@@ -775,3 +775,12 @@ a.nav-link { text-decoration: none; display: inline-flex; align-items: center; }
   .hero-shell::before, .hero-inner > *, .features-grid .feature, .cta:hover::after, .a-submit:hover::after { animation: none !important; }
   .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
 }
+
+/* Kontaktní formulář */
+.field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.field-pref { margin: 0; padding: 14px 16px 16px; border: 1px solid rgba(205,214,226,.22); border-radius: 10px; }
+.field-pref legend { padding: 0 6px; color: var(--accent); font-size: 12px; font-weight: 700; letter-spacing: 1.4px; text-transform: uppercase; }
+.consent-error { display: block; color: #e5ad9e; font-size: 12px; margin-top: -8px; }
+.consent-error:empty { display: none; }
+#contact-form .a-consent { margin-top: 0; }
+@media (max-width: 540px) { .field-row { grid-template-columns: 1fr; } }

@@ -120,3 +120,4 @@ a.q-prev { display: inline-flex; align-items: center; text-decoration: none; }
 @media (prefers-reduced-motion: reduce) {
   .q-opt input:checked + .q-box, .p-block, .p-chip { animation: none !important; }
 }
+.q-motto { font-weight: 700; }

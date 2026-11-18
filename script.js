@@ -67,9 +67,43 @@
     how: `
       <h2 id="dialog-title">Jak to funguje</h2>
       <ul class="facts"><li>Vyplníte žádost o přístup.</li><li>Každou žádost individuálně posuzujeme.</li><li>Po schválení získáte přihlášení do klubu.</li></ul>`,
-    contact: `
+    contact: () => {
+      // Pracovní dny (po–pá) na 3 týdny dopředu, časy po půlhodinách 9:00–19:00
+      const days = [];
+      const d = new Date(); d.setHours(12, 0, 0, 0);
+      while (days.length < 15) {
+        d.setDate(d.getDate() + 1);
+        const wd = d.getDay();
+        if (wd === 0 || wd === 6) continue;
+        const label = d.toLocaleDateString('cs-CZ', { weekday: 'long', day: 'numeric', month: 'numeric' });
+        days.push(`<option value="${label}">${label.charAt(0).toUpperCase() + label.slice(1)}</option>`);
+      }
+      const times = [];
+      for (let m = 9 * 60; m <= 19 * 60; m += 30) times.push(`${Math.floor(m / 60)}:${m % 60 ? '30' : '00'}`);
+      return `
       <h2 id="dialog-title">Kontakt</h2>
-      <p>Pro dotazy k Investors Club nám pošlete žádost o přístup, ozveme se vám.</p>`,
+      <p class="dialog-intro">Napište nám zprávu a zvolte, kdy se vám máme ozvat.</p>
+      <form id="contact-form" class="form-grid" novalidate>
+        <div class="field"><label for="contact-name">Jméno a příjmení *</label><input id="contact-name" name="name" type="text" autocomplete="name" maxlength="120" required><small data-error-for="contact-name" aria-live="polite"></small></div>
+        <div class="field-row">
+          <div class="field"><label for="contact-phone">Telefon *</label><input id="contact-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" maxlength="30" required><small data-error-for="contact-phone" aria-live="polite"></small></div>
+          <div class="field"><label for="contact-email">E-mail *</label><input id="contact-email" name="email" type="email" autocomplete="email" maxlength="254" required><small data-error-for="contact-email" aria-live="polite"></small></div>
+        </div>
+        <div class="field"><label for="contact-message">Zpráva *</label><textarea id="contact-message" name="message" maxlength="2000" required></textarea><small data-error-for="contact-message" aria-live="polite"></small></div>
+        <fieldset class="field-pref">
+          <legend>Preferovaný čas spojení</legend>
+          <div class="field-row">
+            <div class="field"><label for="contact-day">Den (po–pá)</label><select id="contact-day" name="day"><option value="">Kdykoli</option>${days.join('')}</select></div>
+            <div class="field"><label for="contact-time">Čas</label><select id="contact-time" name="time"><option value="">Kdykoli</option>${times.map((t) => `<option value="${t}">${t}</option>`).join('')}</select></div>
+          </div>
+        </fieldset>
+        <label class="a-consent"><input id="contact-consent" type="checkbox" required><span>Souhlasím se zpracováním osobních údajů za účelem vyřízení dotazu.</span></label>
+        <small data-error-for="contact-consent" aria-live="polite" class="consent-error"></small>
+        <input class="hp" type="text" name="company_website" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <button type="submit" class="cta dialog-submit">Odeslat zprávu</button>
+        <p class="login-status" id="contact-status" role="status" aria-live="polite"></p>
+      </form>`;
+    },
     login: `
       <h2 id="dialog-title">Přihlášení členů</h2>
       <form id="login-form" class="form-grid" novalidate>
@@ -100,7 +134,7 @@
     if (!Object.hasOwn(dialogs, type)) return;
     if (layer.hidden) previousFocus = document.activeElement;
     closeMenu();
-    content.innerHTML = dialogs[type];
+    content.innerHTML = typeof dialogs[type] === 'function' ? dialogs[type]() : dialogs[type];
     layer.hidden = false;
     document.body.classList.add('modal-open');
     const first = content.querySelector('input');
@@ -170,8 +204,8 @@
       k: CRM.siteKey,
       name: data.name, email: data.email, phone: data.phone,
       consent: true,
-      formular: CRM.formName,
-      message: 'Investiční kapitál: ' + data.capital,
+      formular: data.formular || CRM.formName,
+      message: data.message || ('Investiční kapitál: ' + data.capital),
       company_website: data.hp,
       u: utm(), p: location.pathname, h: location.host,
       lp: location.pathname, rf: document.referrer || '',
@@ -214,6 +248,49 @@
       statusEl.textContent = err.message === 'not-configured'
         ? 'Odesílání zatím není propojené s CRM. Zkuste to prosím později.'
         : 'Žádost se nepodařilo odeslat. Zkontrolujte připojení a zkuste to znovu.';
+    }
+  });
+
+  // ---- Kontaktní formulář (zpráva + preferovaný čas spojení) → CRM ----
+  content.addEventListener('submit', async (e) => {
+    if (e.target.id !== 'contact-form') return;
+    e.preventDefault();
+    const f = e.target;
+    const v = (id) => $('#' + id).value.trim();
+    const errs = {
+      'contact-name': v('contact-name').split(/\s+/).length < 2 ? 'Zadejte jméno i příjmení.' : '',
+      'contact-phone': (() => { const d = v('contact-phone').replace(/\D/g, ''); return (d.length < 9 || d.length > 15) ? 'Zadejte platné telefonní číslo.' : ''; })(),
+      'contact-email': /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v('contact-email')) ? '' : 'Zadejte platný e-mail.',
+      'contact-message': v('contact-message').length < 3 ? 'Napište nám prosím zprávu.' : '',
+      'contact-consent': $('#contact-consent').checked ? '' : 'Bez souhlasu nemůžeme zprávu zpracovat.'
+    };
+    let first = null;
+    Object.entries(errs).forEach(([id, msg]) => {
+      const el = $('#' + id); el.setAttribute('aria-invalid', msg ? 'true' : 'false');
+      const out = f.querySelector(`[data-error-for="${id}"]`); if (out) out.textContent = msg;
+      if (msg && !first) first = el;
+    });
+    if (first) { first.focus(); return; }
+    const st = $('#contact-status');
+    const btn = f.querySelector('button[type=submit]');
+    const day = v('contact-day'), time = v('contact-time');
+    const pref = day || time ? `${day || 'kterýkoli pracovní den'}${time ? ', ' + time : ''}` : 'kdykoli (po–pá 9:00–19:00)';
+    btn.disabled = true; st.textContent = 'Odesílám…';
+    try {
+      await sendLead({
+        name: v('contact-name'), phone: v('contact-phone'), email: v('contact-email'),
+        formular: 'Kontakt',
+        message: v('contact-message') + '\n\nPreferovaný čas spojení: ' + pref,
+        hp: f.company_website.value
+      });
+      content.innerHTML = `<h2 id="dialog-title">Děkujeme za zprávu</h2>
+        <p>Ozveme se vám ${day || time ? 'v termínu: <strong>' + pref + '</strong>' : 'co nejdříve'}.</p>
+        <div class="success-actions"><button type="button" class="cta secondary-btn" data-dismiss="true">Zavřít</button></div>`;
+    } catch (err) {
+      btn.disabled = false;
+      st.textContent = err.message === 'not-configured'
+        ? 'Odesílání zatím není propojené s CRM. Zkuste to prosím později.'
+        : 'Zprávu se nepodařilo odeslat. Zkontrolujte připojení a zkuste to znovu.';
     }
   });
 
