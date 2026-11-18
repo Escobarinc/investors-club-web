@@ -87,3 +87,19 @@ body.q-page { min-height: 100vh; min-height: 100svh; background: linear-gradient
 .q-card { background: rgba(13,14,19,.975); }
 .q-sticky { background: rgb(13,14,19); }
 .q-opt { background: rgba(255,255,255,.045); }
+
+/* ===== Přehled investičního profilu ===== */
+.p-meta { display: flex; flex-wrap: wrap; gap: 8px 24px; margin: -6px 0 8px; color: var(--accent); font-size: 12.5px; font-weight: 700; letter-spacing: 1.4px; text-transform: uppercase; }
+.p-block { margin-top: 34px; }
+.p-block-title { margin: 0 0 6px; padding-bottom: 12px; border-bottom: 1px solid rgba(205,214,226,.2); font: 600 20px/1.2 var(--font-serif); letter-spacing: -.01em; color: #f4f6f9; }
+.p-list { margin: 0; }
+.p-row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 20px; padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,.06); }
+.p-row dt { display: flex; gap: 10px; align-items: baseline; color: #cfd5dd; font-size: 14.5px; line-height: 1.45; }
+.p-row dd { margin: 0; display: flex; flex-wrap: wrap; gap: 8px; align-content: flex-start; }
+.p-chip { display: inline-flex; align-items: center; min-height: 32px; padding: 6px 12px; border: 1px solid rgba(205,214,226,.45); border-radius: 999px; background: rgba(205,214,226,.08); color: #f4f6f9; font-size: 14px; font-weight: 600; line-height: 1.25; }
+.p-empty { color: #8e959e; font-size: 14px; font-style: italic; }
+a.q-prev { display: inline-flex; align-items: center; text-decoration: none; }
+@media (max-width: 640px) {
+  .p-row { grid-template-columns: 1fr; gap: 10px; }
+  .p-row dd { padding-left: 28px; }
+}
