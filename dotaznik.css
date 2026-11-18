@@ -83,3 +83,7 @@ body.q-page { min-height: 100vh; min-height: 100svh; background: linear-gradient
 .q-question { padding-bottom: 6px; scroll-margin-top: 80px; }
 @media (max-width: 820px) { .q-sticky { margin: 26px -26px 0; padding: 12px 26px; } }
 @media (max-width: 540px) { .q-sticky { margin: 22px -18px 0; padding: 12px 18px; } .q-count { font-size: 12px; } }
+/* Karta dotazníku méně průhledná */
+.q-card { background: rgba(13,14,19,.975); }
+.q-sticky { background: rgb(13,14,19); }
+.q-opt { background: rgba(255,255,255,.045); }
