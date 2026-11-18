@@ -364,6 +364,8 @@
     window.__icRevealCheck = check;
   }
 
+  if (location.hash === '#kontakt') setTimeout(() => openDialog('contact'), 300);
+
   // Pro budoucí skutečné přihlášení členů.
   window.investorsClub = { unlockMenu, setMember };
 })();

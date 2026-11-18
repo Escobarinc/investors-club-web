@@ -805,3 +805,6 @@ body.q-page footer.site-footer.f-footer { margin-top: 0; }
 body:not(.is-member) .site-wrap .f-wrap { display: none; }
 body:not(.is-member) .site-wrap footer.site-footer.f-footer { border-top-color: rgba(205,214,226,.1); }
 .f-bottom { flex-direction: column; align-items: flex-start; gap: 6px; }
+.f-legal { display: flex; flex-wrap: wrap; gap: 8px 24px; margin-top: 6px; }
+.f-legal a, .f-legal button { padding: 0; border: 0; background: none; color: #d6dbe2; font: inherit; font-size: 13px; text-decoration: none; cursor: pointer; }
+.f-legal a:hover, .f-legal button:hover { color: #fff; text-decoration: underline; text-underline-offset: 4px; }
