@@ -1,7 +1,6 @@
 /* Investors Club — Investiční profil (dotazník pro členy).
    Zadání: „Investiční profily obou investorských klubů“, varianta 01 Investiční klub od 1 mil. Kč.
-   Pravidla: jedna odpověď (01–04, 06–11), max. dvě (05), více odpovědí (12–15);
-   „Zatím bez zkušeností“ (12) a „Bez preference“ (14, 15) vylučují ostatní volby.
+   Pravidla: jedna odpověď (01–03, 06–08, 10–11), 1–3 odpovědi (04, 05, 09), libovolně mnoho (12–15).
    Odpovědi se zatím ukládají jen v prohlížeči (napojení na CRM je samostatný krok). */
 (() => {
   'use strict';
@@ -109,7 +108,7 @@
     const boxes = Array.from(fs.querySelectorAll('input'));
     if (q.type === 'max' && input.checked && boxes.filter((b) => b.checked).length > q.max) {
       input.checked = false;
-      fs.querySelector('.q-error').textContent = `Vyberte maximálně ${q.max === 2 ? 'dvě' : q.max} možnosti.`;
+      fs.querySelector('.q-error').textContent = `Vyberte maximálně ${({ 2: 'dvě', 3: 'tři' })[q.max] || q.max} možnosti.`;
       return;
     }
     if (q.exclusive && input.checked) {

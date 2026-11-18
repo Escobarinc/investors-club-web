@@ -66,7 +66,7 @@
       <p>Projekty Vám představíme osobně v návaznosti na vaše preference uvedené v investičním profilu.</p>
       <p>Automatickou provázanost připravujeme v nejbližší době – poté se Vám zde automaticky budou zobrazovat nové příležitosti spolu s notifikací na Váš e-mail.</p>
       <p>Na řešení intenzivně pracujeme – děkujeme za pochopení.</p>
-      <a class="cta dialog-action" href="profil.html">Můj investiční profil</a>`,
+      <button type="button" class="cta dialog-action" data-scroll="klub">Zpět na O klubu</button>`,
     how: `
       <h2 id="dialog-title">Jak to funguje</h2>
       <ul class="facts"><li>Vyplníte žádost o přístup.</li><li>Každou žádost individuálně posuzujeme.</li><li>Po schválení získáte přihlášení do klubu.</li></ul>`,
@@ -315,7 +315,7 @@
     if (cardBtn) { e.preventDefault(); openCard(cardBtn); return; }
     if (e.target.closest('[data-close-card]')) { closeCard(); return; }
     const scrollBtn = e.target.closest('[data-scroll]');
-    if (scrollBtn) { e.preventDefault(); closeMenu(); const t = document.getElementById(scrollBtn.dataset.scroll); if (t && !t.hidden) t.scrollIntoView({ behavior: 'smooth', block: 'start' }); return; }
+    if (scrollBtn) { e.preventDefault(); closeMenu(); closeDialog(); const t = document.getElementById(scrollBtn.dataset.scroll); if (t && !t.hidden) t.scrollIntoView({ behavior: 'smooth', block: 'start' }); return; }
     const trigger = e.target.closest('[data-open]');
     if (trigger && trigger.dataset.open === 'logout') { e.preventDefault(); setMember(false); return; }
     if (trigger) { e.preventDefault(); openDialog(trigger.dataset.open); return; }
