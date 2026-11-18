@@ -313,7 +313,7 @@
     if (cardBtn) { e.preventDefault(); openCard(cardBtn); return; }
     if (e.target.closest('[data-close-card]')) { closeCard(); return; }
     const scrollBtn = e.target.closest('[data-scroll]');
-    if (scrollBtn) { e.preventDefault(); closeMenu(); closeDialog(); const t = document.getElementById(scrollBtn.dataset.scroll); if (t && !t.hidden) t.scrollIntoView({ behavior: 'smooth', block: 'start' }); return; }
+    if (scrollBtn) { e.preventDefault(); closeMenu(); closeDialog(); window.scrollTo({ top: 0, behavior: 'smooth' }); return; }
     const trigger = e.target.closest('[data-open]');
     if (trigger && trigger.dataset.open === 'logout') { e.preventDefault(); setMember(false); return; }
     if (trigger) { e.preventDefault(); openDialog(trigger.dataset.open); return; }
