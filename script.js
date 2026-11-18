@@ -100,8 +100,6 @@
             <div class="field"><label for="contact-time">Čas</label><select id="contact-time" name="time"><option value="">Kdykoli</option>${times.map((t) => `<option value="${t}">${t}</option>`).join('')}</select></div>
           </div>
         </fieldset>
-        <label class="a-consent"><input id="contact-consent" type="checkbox" required><span>Souhlasím se zpracováním osobních údajů za účelem vyřízení dotazu.</span></label>
-        <small data-error-for="contact-consent" aria-live="polite" class="consent-error"></small>
         <input class="hp" type="text" name="company_website" tabindex="-1" autocomplete="off" aria-hidden="true">
         <button type="submit" class="cta dialog-submit">Odeslat zprávu</button>
         <p class="login-status" id="contact-status" role="status" aria-live="polite"></p>
@@ -206,7 +204,7 @@
     const body = {
       k: CRM.siteKey,
       name: data.name, email: data.email, phone: data.phone,
-      consent: true,
+      ...(data.consent !== undefined ? { consent: data.consent } : {}),
       formular: data.formular || CRM.formName,
       message: data.message || ('Investiční kapitál: ' + data.capital),
       company_website: data.hp,
@@ -238,6 +236,7 @@
         phone: $('#access-phone').value.trim(),
         email: $('#access-email').value.trim(),
         capital: $('#access-capital').value,
+        consent: true,
         hp: accessForm.company_website.value
       });
       cardBody.innerHTML = `
@@ -264,8 +263,7 @@
       'contact-name': v('contact-name').split(/\s+/).length < 2 ? 'Zadejte jméno i příjmení.' : '',
       'contact-phone': (() => { const d = v('contact-phone').replace(/\D/g, ''); return (d.length < 9 || d.length > 15) ? 'Zadejte platné telefonní číslo.' : ''; })(),
       'contact-email': /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v('contact-email')) ? '' : 'Zadejte platný e-mail.',
-      'contact-message': v('contact-message').length < 3 ? 'Napište nám prosím zprávu.' : '',
-      'contact-consent': $('#contact-consent').checked ? '' : 'Bez souhlasu nemůžeme zprávu zpracovat.'
+      'contact-message': v('contact-message').length < 3 ? 'Napište nám prosím zprávu.' : ''
     };
     let first = null;
     Object.entries(errs).forEach(([id, msg]) => {
