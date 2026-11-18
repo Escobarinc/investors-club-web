@@ -801,3 +801,6 @@ footer.site-footer.f-footer { height: auto; overflow: visible; background: linea
 body.q-page footer.site-footer.f-footer { margin-top: 0; }
 @media (max-width: 1120px) { .f-wrap { padding: 48px 40px 32px; grid-template-columns: repeat(3, minmax(0, 1fr)); } .f-brand { grid-column: 1 / -1; } .f-bottom { padding: 18px 40px 26px; } }
 @media (max-width: 540px) { .f-wrap { padding: 40px 24px 24px; grid-template-columns: 1fr 1fr; gap: 28px 20px; } .f-bottom { padding: 18px 24px 26px; flex-direction: column; } }
+/* Titulka (nepřihlášený návštěvník): v patičce jen spodní lišta s copyrightem */
+body:not(.is-member) .site-wrap .f-wrap { display: none; }
+body:not(.is-member) .site-wrap footer.site-footer.f-footer { border-top-color: rgba(205,214,226,.1); }
