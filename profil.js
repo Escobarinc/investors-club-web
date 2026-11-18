@@ -71,7 +71,7 @@
     </div>
     ${sections}
     <div class="q-nav">
-      <a class="q-prev" href="index.html#klub">Zpět do klubu</a>
+      <a class="q-prev" href="index.html">Zpět do klubu</a>
       <a class="cta q-next" href="dotaznik.html">Upravit odpovědi ${arrow}</a>
     </div>`);
 })();

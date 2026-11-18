@@ -66,7 +66,7 @@
       <p>Projekty Vám představíme osobně v návaznosti na vaše preference uvedené v investičním profilu.</p>
       <p>Automatickou provázanost připravujeme v nejbližší době – poté se Vám zde automaticky budou zobrazovat nové příležitosti spolu s notifikací na Váš e-mail.</p>
       <p>Na řešení intenzivně pracujeme – děkujeme za pochopení.</p>
-      <button type="button" class="cta dialog-action" data-scroll="klub">Zpět na O klubu</button>`,
+      <button type="button" class="cta dialog-action" data-scroll="klub">Zpět</button>`,
     how: `
       <h2 id="dialog-title">Jak to funguje</h2>
       <ul class="facts"><li>Vyplníte žádost o přístup.</li><li>Každou žádost individuálně posuzujeme.</li><li>Po schválení získáte přihlášení do klubu.</li></ul>`,
