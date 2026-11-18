@@ -95,7 +95,35 @@
       <div class="q-nav"><a class="cta q-next" href="index.html">Přejít na přihlášení ${arrow}</a></div>`);
   }
 
-  function renderIntro() {
+  const allQuestions = blocks.flatMap((b) => b.questions);
+
+  function questionHtml(q) {
+    const sel = answers[q.id] || [];
+    const inputType = q.type === 'single' ? 'radio' : 'checkbox';
+    const opts = q.options.map((o) => `
+      <label class="q-opt">
+        <input type="${inputType}" name="${q.id}" value="${esc(o)}" ${sel.includes(o) ? 'checked' : ''}>
+        <span class="q-box">${check}</span><span class="q-opt-label">${esc(o)}</span>
+      </label>`).join('');
+    return `
+      <fieldset class="q-question" data-q="${q.id}">
+        <legend><span class="q-num">${q.id.slice(1)}</span>${esc(q.text)}</legend>
+        ${q.hint ? `<p class="q-hint">${esc(q.hint)}</p>` : ''}
+        <div class="q-opts">${opts}</div>
+        <p class="q-error" role="alert"></p>
+      </fieldset>`;
+  }
+
+  function countDone() {
+    const n = allQuestions.filter((q) => (answers[q.id] || []).length).length;
+    const el = card.querySelector('.q-count');
+    if (el) el.textContent = `Zodpovězeno ${n} z ${allQuestions.length}`;
+    const bar = card.querySelector('.q-bar span');
+    if (bar) bar.style.width = `${(n / allQuestions.length) * 100}%`;
+  }
+
+  // Vše na jedné stránce: úvod, 15 otázek, odeslání.
+  function renderForm() {
     show(`
       <p class="q-eyebrow">Váš investiční profil</p>
       <h1 class="q-title">Příležitosti, které odpovídají <span class="q-accent">vašim představám.</span></h1>
@@ -104,42 +132,14 @@
       <p class="q-text">Na základě těchto informací budeme moci cíleněji představovat investiční projekty a jejich podmínky, které odpovídají vašim deklarovaným zájmům.</p>
       <p class="q-motto">Váš kapitál. Vaše preference. Váš výběr.</p>
       <p class="q-small">Vyplnění probíhá jednoduše, výběrem odpovědí. Nevyžadujeme žádné finanční dokumenty a své preference budete moci později aktualizovat.</p>
-      <div class="q-nav"><button type="button" class="cta q-next" data-go="0">Vytvořit investiční profil ${arrow}</button></div>`);
-  }
-
-  function renderBlock(i) {
-    const b = blocks[i];
-    const qs = b.questions.map((q) => {
-      const sel = answers[q.id] || [];
-      const inputType = q.type === 'single' ? 'radio' : 'checkbox';
-      const opts = q.options.map((o, k) => `
-        <label class="q-opt">
-          <input type="${inputType}" name="${q.id}" value="${esc(o)}" ${sel.includes(o) ? 'checked' : ''}>
-          <span class="q-box">${check}</span><span class="q-opt-label">${esc(o)}</span>
-        </label>`).join('');
-      const num = q.id.slice(1);
-      return `
-        <fieldset class="q-question" data-q="${q.id}">
-          <legend><span class="q-num">${num}</span>${esc(q.text)}</legend>
-          ${q.hint ? `<p class="q-hint">${esc(q.hint)}</p>` : ''}
-          <div class="q-opts">${opts}</div>
-          <p class="q-error" role="alert"></p>
-        </fieldset>`;
-    }).join('');
-    show(`
-      <div class="q-progress" aria-label="Blok ${i + 1} ze ${blocks.length}">
-        <span class="q-step-label">Blok ${String(i + 1).padStart(2, '0')} / ${String(blocks.length).padStart(2, '0')}</span>
-        <span class="q-bar"><span style="width:${((i + 1) / blocks.length) * 100}%"></span></span>
-      </div>
-      <h2 class="q-title">${esc(b.title)}</h2>
-      <p class="q-text q-block-intro">${esc(b.intro)}</p>
-      <form class="q-form" data-block="${i}" novalidate>
-        ${qs}
+      <div class="q-progress q-sticky"><span class="q-count"></span><span class="q-bar"><span></span></span></div>
+      <form class="q-form" novalidate>
+        ${allQuestions.map(questionHtml).join('')}
         <div class="q-nav">
-          <button type="button" class="q-prev" data-go="${i - 1}">Zpět</button>
-          <button type="submit" class="cta q-next">${i === blocks.length - 1 ? 'Dokončit profil' : 'Pokračovat'} ${arrow}</button>
+          <button type="submit" class="cta q-next">Dokončit investiční profil ${arrow}</button>
         </div>
       </form>`);
+    countDone();
   }
 
   function renderDone() {
@@ -150,15 +150,9 @@
       <p class="q-text">Děkujeme za vyplnění. Vaše odpovědi nám pomohou lépe porozumět vašim preferencím a zaměřit následné představení investičních projektů na relevantní oblasti.</p>
       <p class="q-small">Konkrétní nabídky a jejich podmínky budou posuzovány samostatně.</p>
       <div class="q-nav">
-        <button type="button" class="q-prev" data-go="0">Upravit odpovědi</button>
+        <button type="button" class="q-prev" data-edit>Upravit odpovědi</button>
         <a class="cta q-next" href="index.html#klub">Zpět do klubu ${arrow}</a>
       </div>`);
-  }
-
-  function go(step) {
-    if (step < 0) return renderIntro();
-    if (step >= blocks.length) { save(true); return renderDone(); }
-    renderBlock(step);
   }
 
   // Výběr odpovědí: limit u „max“, vylučující volba u „multi“.
@@ -181,15 +175,15 @@
     fs.querySelector('.q-error').textContent = '';
     fs.classList.remove('is-missing');
     save(false);
+    countDone();
   });
 
   card.addEventListener('submit', (e) => {
     const form = e.target.closest('.q-form');
     if (!form) return;
     e.preventDefault();
-    const i = Number(form.dataset.block);
     let firstMissing = null;
-    blocks[i].questions.forEach((q) => {
+    allQuestions.forEach((q) => {
       const fs = form.querySelector(`[data-q="${q.id}"]`);
       const ok = (answers[q.id] || []).length > 0;
       fs.classList.toggle('is-missing', !ok);
@@ -197,15 +191,13 @@
       if (!ok && !firstMissing) firstMissing = fs;
     });
     if (firstMissing) { firstMissing.scrollIntoView({ behavior: 'smooth', block: 'center' }); return; }
-    go(i + 1);
+    save(true);
+    renderDone();
   });
 
   card.addEventListener('click', (e) => {
-    const btn = e.target.closest('[data-go]');
-    if (!btn) return;
-    e.preventDefault();
-    go(Number(btn.dataset.go));
+    if (e.target.closest('[data-edit]')) { e.preventDefault(); renderForm(); }
   });
 
-  if (isMember) renderIntro(); else renderLocked();
+  if (isMember) renderForm(); else renderLocked();
 })();
