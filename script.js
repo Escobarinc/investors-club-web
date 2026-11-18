@@ -63,7 +63,10 @@
       <ul class="facts"><li>Vybrané projekty</li><li>Investiční příležitosti</li><li>Detailní podklady</li><li>Schvalovaný přístup</li></ul>`,
     projects: `
       <h2 id="dialog-title">Vybrané projekty</h2>
-      <p>Projekty mají různé výnosy, podmínky a formy zajištění. Konkrétní nabídky zatím nejsou zveřejněné.</p>`,
+      <p>Projekty Vám představíme osobně v návaznosti na vaše preference uvedené v investičním profilu.</p>
+      <p>Automatickou provázanost připravujeme v nejbližší době – poté se Vám zde automaticky budou zobrazovat nové příležitosti spolu s notifikací na Váš e-mail.</p>
+      <p>Na řešení intenzivně pracujeme – děkujeme za pochopení.</p>
+      <a class="cta dialog-action" href="profil.html">Můj investiční profil</a>`,
     how: `
       <h2 id="dialog-title">Jak to funguje</h2>
       <ul class="facts"><li>Vyplníte žádost o přístup.</li><li>Každou žádost individuálně posuzujeme.</li><li>Po schválení získáte přihlášení do klubu.</li></ul>`,

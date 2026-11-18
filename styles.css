@@ -784,3 +784,4 @@ a.nav-link { text-decoration: none; display: inline-flex; align-items: center; }
 .consent-error:empty { display: none; }
 #contact-form .a-consent { margin-top: 0; }
 @media (max-width: 540px) { .field-row { grid-template-columns: 1fr; } }
+a.dialog-action { display: flex; text-decoration: none; }
