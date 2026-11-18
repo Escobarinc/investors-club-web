@@ -76,7 +76,7 @@
       <p class="q-text">Prostřednictvím krátkého investičního profilu nám pomůžete lépe porozumět vašim preferencím, požadovanému horizontu, očekávanému výnosu i přístupu k riziku.</p>
       <p class="q-text">Na základě těchto informací budeme moci cíleněji představovat investiční projekty a jejich podmínky, které odpovídají vašim deklarovaným zájmům.</p>
       <p class="q-motto">Váš kapitál. Vaše preference. Váš výběr.</p>
-      <p class="q-small">Vyplnění probíhá jednoduše, výběrem odpovědí. Nevyžadujeme žádné finanční dokumenty a své preference budete moci později aktualizovat.</p>
+      <p class="q-small">Vyplnění probíhá jednoduše, výběrem odpovědí. Své preference můžete v budoucnu kdykoli aktualizovat.</p>
       <div class="q-progress q-sticky"><span class="q-count"></span><span class="q-bar"><span></span></span></div>
       <form class="q-form" novalidate>
         ${allQuestions.map(questionHtml).join('')}
