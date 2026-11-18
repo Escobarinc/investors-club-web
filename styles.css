@@ -329,3 +329,24 @@ header.site-header .login-btn svg { color: var(--accent); }
   .a-submit { height: 56px; margin-top: 16px; }
   .a-note { margin-top: 14px; }
 }
+
+/* ---- Mobil: texty na tmavém podkladu, fotka s křeslem celá pod nimi ---- */
+@media (max-width: 540px) {
+  .hero-shell { height: auto; background: linear-gradient(180deg, #0b0c11 0%, #0b0c11 calc(100% - 330px), rgba(11,12,17,.55) calc(100% - 250px), rgba(11,12,17,0) calc(100% - 170px)), url("assets/hero-lounge.webp") 74% 100% / auto 360px no-repeat, #0b0c11; }
+  .hero-shell::after { display: none; }
+  section#hero { height: auto; padding-bottom: 300px; }
+  .hero-inner { padding: 36px 24px 0; }
+  .hero h1 { text-shadow: none; }
+  .hero-description, .access-note { text-shadow: none; }
+  .hero-description { color: #d9d3cd; }
+  .access-note { color: #a99f95; font-size: 14px; }
+  .cta-hero { height: 58px; }
+}
+@media (max-width: 380px) {
+  header.site-header .login-btn span { display: inline; }
+  header.site-header .login-btn { width: auto; padding: 0 12px; }
+}
+@media (max-width: 340px) {
+  header.site-header .login-btn span { display: none; }
+  header.site-header .login-btn { width: 40px; padding: 0; }
+}
