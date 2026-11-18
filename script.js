@@ -1,6 +1,9 @@
 /* Investors Club — interakce: karta Žádost o přístup (lead do CLARIX CRM), Login, menu pro členy. */
 (() => {
   'use strict';
+  // Náhled variant úvodu: ?varianta=svetla
+  const varianta = new URLSearchParams(location.search).get('varianta');
+  if (varianta) document.documentElement.dataset.varianta = varianta;
 
   // ---- Napojení na CLARIX CRM ----
   // siteKey = klíč webu z CRM (Nastavení → Weby a měření). Bez klíče formulář nic neodešle a řekne to.
