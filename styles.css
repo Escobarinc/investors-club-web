@@ -707,3 +707,6 @@ html[data-pismo] .m-num { font-weight: 300; }
 @media (min-width: 1121px) and (max-height: 860px) {
   html[data-pismo]:not([data-varianta="svetla"]) .hero h1 { font-size: 38.6px; }
 }
+
+/* Přihlášený člen: žádost o přístup už se nezobrazuje */
+body.is-member .cta-hero, body.is-member .access-note, body.is-member #access-card { display: none !important; }
