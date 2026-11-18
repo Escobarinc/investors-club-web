@@ -27,8 +27,23 @@
   let previousFocus = null;
   let cardTrigger = null;
 
-  // Menu je jen pro přihlášené členy. Přihlášení členů zatím není spuštěné, proto zůstává skryté.
-  const unlockMenu = () => document.body.classList.remove('access-locked');
+  // ---- Členská sekce: po přihlášení se odemkne menu a sekce #klub ----
+  // Přihlášení je zatím ukázkové (bez napojení na účty) – přijme jakékoli vyplněné údaje.
+  const MEMBER_KEY = 'ic-member';
+  const members = $('#klub');
+  const loginBtn = $('.login-btn');
+  const loginLabel = loginBtn.querySelector('span');
+  function setMember(on, scroll) {
+    document.body.classList.toggle('access-locked', !on);
+    document.body.classList.toggle('is-member', on);
+    members.hidden = !on;
+    loginBtn.dataset.open = on ? 'logout' : 'login';
+    loginLabel.textContent = on ? 'Odhlásit' : 'Login';
+    try { on ? localStorage.setItem(MEMBER_KEY, '1') : localStorage.removeItem(MEMBER_KEY); } catch (e) { /* storage blocked */ }
+    if (on && scroll) requestAnimationFrame(() => members.scrollIntoView({ behavior: 'smooth', block: 'start' }));
+    if (!on) window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+  const unlockMenu = () => setMember(true, false);
 
   const dialogs = {
     about: `
@@ -51,6 +66,7 @@
         <div class="field"><label for="login-password">Heslo</label><input id="login-password" name="password" type="password" autocomplete="current-password" maxlength="200" required></div>
         <button type="submit" class="cta dialog-submit">Přihlásit se</button>
         <p class="login-status" id="login-status" role="status" aria-live="polite"></p>
+        <p class="login-demo">Ukázkový režim – přihlášení zatím není napojené na členské účty.</p>
       </form>
       <p class="login-hint">Ještě nejste členem? <button type="button" class="link-btn" data-open-card>Požádat o přístup</button></p>`
   };
@@ -197,7 +213,9 @@
     const st = $('#login-status');
     const email = $('#login-email'), pass = $('#login-password');
     if (!email.value.trim() || !pass.value) { st.textContent = 'Vyplňte e-mail a heslo.'; (email.value.trim() ? pass : email).focus(); return; }
-    st.textContent = 'Přihlášení členů připravujeme. Přístup získáte po schválení žádosti.';
+    st.textContent = '';
+    closeDialog();
+    setMember(true, true);
   });
 
   // ---- Kliknutí a klávesy ----
@@ -205,7 +223,10 @@
     const cardBtn = e.target.closest('[data-open-card]');
     if (cardBtn) { e.preventDefault(); openCard(cardBtn); return; }
     if (e.target.closest('[data-close-card]')) { closeCard(); return; }
+    const scrollBtn = e.target.closest('[data-scroll]');
+    if (scrollBtn) { e.preventDefault(); closeMenu(); const t = document.getElementById(scrollBtn.dataset.scroll); if (t && !t.hidden) t.scrollIntoView({ behavior: 'smooth', block: 'start' }); return; }
     const trigger = e.target.closest('[data-open]');
+    if (trigger && trigger.dataset.open === 'logout') { e.preventDefault(); setMember(false); return; }
     if (trigger) { e.preventDefault(); openDialog(trigger.dataset.open); return; }
     if (e.target.closest('[data-dismiss]')) { closeDialog(); return; }
     if (!menu.contains(e.target) && !menuToggle.contains(e.target)) closeMenu();
@@ -229,6 +250,8 @@
     document.body.classList.toggle('sheet-open', !card.hidden && isSheet());
   });
 
-  // Pro budoucí přihlášení členů.
-  window.investorsClub = { unlockMenu };
+  try { if (localStorage.getItem(MEMBER_KEY) === '1') setMember(true, false); } catch (e) { /* storage blocked */ }
+
+  // Pro budoucí skutečné přihlášení členů.
+  window.investorsClub = { unlockMenu, setMember };
 })();
