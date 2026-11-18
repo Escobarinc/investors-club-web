@@ -7,8 +7,8 @@
   <meta name="description" content="Investors Club — vybrané investiční příležitosti od 1 mil. Kč. Žádost o individuálně schvalovaný přístup k projektům.">
   <meta name="theme-color" content="#0c0d12">
   <title>Investors Club — Vybrané investiční příležitosti od 1 mil. Kč</title>
-  <link rel="stylesheet" href="styles.css?v=5">
-  <script src="script.js?v=5" defer></script>
+  <link rel="stylesheet" href="styles.css?v=9">
+  <script src="script.js?v=9" defer></script>
 </head>
 <body class="access-locked">
   <a class="skip-link" href="#hero">Přejít k obsahu</a>
@@ -36,6 +36,11 @@
           <button type="button" class="nav-link" data-open="contact">Kontakt</button>
         </nav>
 
+        <button type="button" class="login-btn" data-open="login">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4.5 21a7.5 7.5 0 0 1 15 0"/></svg>
+          <span>Login</span>
+        </button>
+
       </header>
 
       <main>
@@ -44,7 +49,7 @@
             <p class="eyebrow">Vybrané investiční příležitosti od&nbsp;1&nbsp;mil.&nbsp;Kč</p>
             <h1 id="hero-title">Vybrané projekty.<br><span class="h1-accent">Nové investiční možnosti.</span></h1>
             <p class="hero-description">Získejte přístup k vybraným investičním projektům s různými výnosy, podmínkami a formami zajištění. Objevujte nové příležitosti a vybírejte si podle vlastních investičních cílů.</p>
-            <button type="button" class="cta cta-hero" data-open="access">
+            <button type="button" class="cta cta-hero" data-open-card>
               <span>Požádat o přístup k projektům</span>
               <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M13 5l7 7-7 7" /></svg>
             </button>
@@ -52,6 +57,31 @@
           </div>
         </section>
       </main>
+
+      <aside class="access-card" id="access-card" aria-labelledby="access-title" hidden>
+        <button class="access-close" type="button" data-close-card aria-label="Zavřít žádost">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+        </button>
+        <div id="access-body">
+          <h2 id="access-title">Žádost o přístup</h2>
+          <form id="access-form" novalidate data-clarix="Žádost o přístup">
+            <label class="a-field"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4.5 21a7.5 7.5 0 0 1 15 0"/></svg><input id="access-name" name="name" type="text" autocomplete="name" maxlength="120" placeholder="Jméno a příjmení" aria-label="Jméno a příjmení" required></label>
+            <small class="a-error" data-error-for="access-name" aria-live="polite"></small>
+            <label class="a-field"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7.6 3.6 4.2 6.8a3 3 0 0 0-.6 3.2c1.9 5 6.4 9.5 11.4 11.4a3 3 0 0 0 3.2-.6l3.2-3.4-5.3-4.1-2.7 2.2a18 18 0 0 1-4.9-4.9l2.2-2.7-4.1-5.3Z"/></svg><input id="access-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" maxlength="30" placeholder="Telefonní číslo" aria-label="Telefonní číslo" required></label>
+            <small class="a-error" data-error-for="access-phone" aria-live="polite"></small>
+            <label class="a-field"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="15" rx="1.5"/><path d="m3.5 6 8.5 6.5L20.5 6"/></svg><input id="access-email" name="email" type="email" autocomplete="email" maxlength="254" placeholder="E-mail" aria-label="E-mail" required></label>
+            <small class="a-error" data-error-for="access-email" aria-live="polite"></small>
+            <label class="a-field a-select"><svg viewBox="0 0 24 24" aria-hidden="true"><ellipse cx="9" cy="6" rx="6" ry="2.5"/><path d="M3 6v5c0 1.4 2.7 2.5 6 2.5s6-1.1 6-2.5V6M3 11v5c0 1.4 2.7 2.5 6 2.5 1 0 2-.1 2.8-.3"/><ellipse cx="17" cy="15" rx="4.5" ry="2"/><path d="M12.5 15v3.5c0 1.1 2 2 4.5 2s4.5-.9 4.5-2V15"/></svg><select id="access-capital" name="capital" aria-label="Investiční kapitál" required><option value="">Investiční kapitál</option><option value="1–3 mil. Kč">1–3 mil. Kč</option><option value="3–5 mil. Kč">3–5 mil. Kč</option><option value="5–10 mil. Kč">5–10 mil. Kč</option><option value="Více než 10 mil. Kč">Více než 10 mil. Kč</option></select></label>
+            <small class="a-error" data-error-for="access-capital" aria-live="polite"></small>
+            <label class="a-consent"><input id="access-consent" name="consent" type="checkbox" required><span>Souhlasím se zpracováním osobních údajů za účelem vyřízení žádosti.</span></label>
+            <small class="a-error" data-error-for="access-consent" aria-live="polite"></small>
+            <input class="hp" type="text" name="company_website" tabindex="-1" autocomplete="off" aria-hidden="true">
+            <button type="submit" class="a-submit"><span>Odeslat žádost</span><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M13 5l7 7-7 7"/></svg></button>
+            <p class="a-status" id="access-status" role="status" aria-live="polite"></p>
+            <p class="a-note">Každou žádost individuálně posuzujeme. Odeslání žádosti nezaručuje přijetí do klubu.</p>
+          </form>
+        </div>
+      </aside>
     </div>
 
     <section id="features" class="features" aria-label="Výhody Investors Club">
