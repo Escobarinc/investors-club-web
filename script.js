@@ -89,7 +89,7 @@
       <form id="contact-form" class="form-grid" novalidate>
         <div class="field"><label for="contact-name">Jméno a příjmení *</label><input id="contact-name" name="name" type="text" autocomplete="name" maxlength="120" required><small data-error-for="contact-name" aria-live="polite"></small></div>
         <div class="field-row">
-          <div class="field"><label for="contact-phone">Telefon *</label><input id="contact-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" maxlength="30" required><small data-error-for="contact-phone" aria-live="polite"></small></div>
+          <div class="field"><label for="contact-phone">Telefon *</label><div class="phone-row"><select id="contact-prefix" class="c-prefix" aria-label="Předvolba"><option value="+420">CZ +420</option><option value="+421">SK +421</option></select><input id="contact-phone" name="phone" type="tel" inputmode="numeric" autocomplete="tel-national" maxlength="9" placeholder="9 číslic" required></div><small data-error-for="contact-phone" aria-live="polite"></small></div>
           <div class="field"><label for="contact-email">E-mail *</label><input id="contact-email" name="email" type="email" autocomplete="email" maxlength="254" required><small data-error-for="contact-email" aria-live="polite"></small></div>
         </div>
         <div class="field"><label for="contact-message">Zpráva *</label><textarea id="contact-message" name="message" maxlength="2000" required></textarea><small data-error-for="contact-message" aria-live="polite"></small></div>
@@ -173,11 +173,16 @@
     cardTrigger = null;
   }
 
+  // E-mail: jméno@doména.koncovka (koncovka min. 2 písmena, bez mezer a dvojitých teček)
+  const EMAIL_RE = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9])?(?:\.[A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9])?)*\.[A-Za-z]{2,}$/;
+  const emailOk = (v) => EMAIL_RE.test(v) && !v.includes('..') && !v.startsWith('.') && !v.split('@')[0].endsWith('.');
+  const EMAIL_MSG = 'Zadejte celý e-mail ve tvaru jmeno@domena.cz.';
+
   // ---- Validace ----
   const rules = {
     'access-name': (v) => (v.length < 3 || v.split(/\s+/).length < 2) ? 'Zadejte jméno i příjmení.' : '',
-    'access-phone': (v) => { const d = v.replace(/\D/g, ''); return (!/^\+?[\d\s()/-]{6,30}$/.test(v) || d.length < 9 || d.length > 15) ? 'Zadejte platné telefonní číslo.' : ''; },
-    'access-email': (v) => /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v) ? '' : 'Zadejte platný e-mail.',
+    'access-phone': (v) => /^\d{9}$/.test(v.replace(/\s/g, '')) ? '' : 'Zadejte 9 číslic telefonního čísla.',
+    'access-email': (v) => emailOk(v) ? '' : EMAIL_MSG,
     'access-capital': (v) => v ? '' : 'Vyberte investiční kapitál.',
     'access-consent': (_, el) => el.checked ? '' : 'Bez souhlasu nemůžeme žádost zpracovat.'
   };
@@ -233,7 +238,7 @@
     try {
       await sendLead({
         name: $('#access-name').value.trim(),
-        phone: $('#access-phone').value.trim(),
+        phone: $('#access-prefix').value + ' ' + $('#access-phone').value.replace(/\D/g, ''),
         email: $('#access-email').value.trim(),
         capital: $('#access-capital').value,
         consent: true,
@@ -261,8 +266,8 @@
     const v = (id) => $('#' + id).value.trim();
     const errs = {
       'contact-name': v('contact-name').split(/\s+/).length < 2 ? 'Zadejte jméno i příjmení.' : '',
-      'contact-phone': (() => { const d = v('contact-phone').replace(/\D/g, ''); return (d.length < 9 || d.length > 15) ? 'Zadejte platné telefonní číslo.' : ''; })(),
-      'contact-email': /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v('contact-email')) ? '' : 'Zadejte platný e-mail.',
+      'contact-phone': /^\d{9}$/.test(v('contact-phone').replace(/\s/g, '')) ? '' : 'Zadejte 9 číslic telefonního čísla.',
+      'contact-email': emailOk(v('contact-email')) ? '' : EMAIL_MSG,
       'contact-message': v('contact-message').length < 3 ? 'Napište nám prosím zprávu.' : ''
     };
     let first = null;
@@ -279,7 +284,7 @@
     btn.disabled = true; st.textContent = 'Odesílám…';
     try {
       await sendLead({
-        name: v('contact-name'), phone: v('contact-phone'), email: v('contact-email'),
+        name: v('contact-name'), phone: v('contact-prefix') + ' ' + v('contact-phone').replace(/\D/g, ''), email: v('contact-email'),
         formular: 'Kontakt',
         message: v('contact-message') + '\n\nPreferovaný čas spojení: ' + pref,
         hp: f.company_website.value
@@ -305,6 +310,14 @@
     st.textContent = '';
     closeDialog();
     setMember(true, true);
+  });
+
+  // Telefon: jen číslice, max. 9
+  document.addEventListener('input', (e) => {
+    const t = e.target;
+    if (t.id !== 'access-phone' && t.id !== 'contact-phone') return;
+    const clean = t.value.replace(/\D/g, '').slice(0, 9);
+    if (clean !== t.value) t.value = clean;
   });
 
   // ---- Kliknutí a klávesy ----

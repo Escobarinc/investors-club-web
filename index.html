@@ -10,8 +10,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap">
-  <link rel="stylesheet" href="styles.css?v=56">
-  <script src="script.js?v=57" defer></script>
+  <link rel="stylesheet" href="styles.css?v=59">
+  <script src="script.js?v=59" defer></script>
 </head>
 <body class="access-locked">
   <a class="skip-link" href="#hero">Přejít k obsahu</a>
@@ -70,7 +70,7 @@
           <form id="access-form" novalidate data-clarix="Žádost o přístup">
             <label class="a-field"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4.5 21a7.5 7.5 0 0 1 15 0"/></svg><input id="access-name" name="name" type="text" autocomplete="name" maxlength="120" placeholder="Jméno a příjmení" aria-label="Jméno a příjmení" required></label>
             <small class="a-error" data-error-for="access-name" aria-live="polite"></small>
-            <label class="a-field"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7.6 3.6 4.2 6.8a3 3 0 0 0-.6 3.2c1.9 5 6.4 9.5 11.4 11.4a3 3 0 0 0 3.2-.6l3.2-3.4-5.3-4.1-2.7 2.2a18 18 0 0 1-4.9-4.9l2.2-2.7-4.1-5.3Z"/></svg><input id="access-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" maxlength="30" placeholder="Telefonní číslo" aria-label="Telefonní číslo" required></label>
+            <label class="a-field"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7.6 3.6 4.2 6.8a3 3 0 0 0-.6 3.2c1.9 5 6.4 9.5 11.4 11.4a3 3 0 0 0 3.2-.6l3.2-3.4-5.3-4.1-2.7 2.2a18 18 0 0 1-4.9-4.9l2.2-2.7-4.1-5.3Z"/></svg><select id="access-prefix" class="a-prefix" aria-label="Předvolba"><option value="+420">CZ +420</option><option value="+421">SK +421</option></select><input id="access-phone" name="phone" type="tel" inputmode="numeric" autocomplete="tel-national" maxlength="9" placeholder="Telefonní číslo (9 číslic)" aria-label="Telefonní číslo" required></label>
             <small class="a-error" data-error-for="access-phone" aria-live="polite"></small>
             <label class="a-field"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="15" rx="1.5"/><path d="m3.5 6 8.5 6.5L20.5 6"/></svg><input id="access-email" name="email" type="email" autocomplete="email" maxlength="254" placeholder="E-mail" aria-label="E-mail" required></label>
             <small class="a-error" data-error-for="access-email" aria-live="polite"></small>
