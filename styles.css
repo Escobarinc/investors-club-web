@@ -661,3 +661,21 @@ html[data-pismo] .m-num { font-weight: 300; }
 @media (min-width: 821px) and (max-width: 1200px) {
   html:not([data-varianta="svetla"]) .hero-shell { background-image: linear-gradient(180deg, rgba(9,11,17,.5) 0%, rgba(9,11,17,0) 130px), linear-gradient(90deg, rgba(9,11,17,.94) 0%, rgba(9,11,17,.9) 50%, rgba(9,11,17,.6) 62%, rgba(9,11,17,.15) 74%, rgba(9,11,17,0) 82%), url("assets/hero-office.webp") !important; }
 }
+
+/* ===== Fotka vždy celá na šířku: zeď vlevo pod textem, věže vpravo vždy vidět ===== */
+@media (min-width: 821px) {
+  html:not([data-varianta="svetla"]) .hero-shell {
+    --imgh: calc(min(100vw, 1440px) * 0.5266);
+    background-image:
+      linear-gradient(180deg, #0c0d12 0, #0c0d12 calc(100% - var(--imgh)), rgba(12,13,18,0) calc(100% - var(--imgh) + 160px)),
+      linear-gradient(180deg, rgba(9,11,17,.5) 0%, rgba(9,11,17,0) 130px),
+      linear-gradient(90deg, rgba(9,11,17,.93) 0%, rgba(9,11,17,.9) 38%, rgba(9,11,17,.55) 45.5%, rgba(9,11,17,.12) 52%, rgba(9,11,17,0) 60%),
+      url("assets/hero-office.webp") !important;
+    background-size: auto, auto, auto, 100% auto !important;
+    background-position: 0 0, 0 0, 0 0, center bottom !important;
+    background-repeat: no-repeat !important;
+  }
+  /* text nikdy širší než zeď (zeď = levých ~45 % fotky) */
+  html:not([data-varianta="svetla"]) .hero-inner { max-width: calc(min(100vw, 1440px) * 0.44); }
+  html:not([data-varianta="svetla"]) .hero-description { max-width: 100%; }
+}
