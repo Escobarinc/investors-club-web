@@ -51,6 +51,7 @@
     loginLabel.textContent = on ? 'Odhlásit' : 'Login';
     try { on ? localStorage.setItem(MEMBER_KEY, '1') : localStorage.removeItem(MEMBER_KEY); } catch (e) { /* storage blocked */ }
     if (on && scroll) window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (on && window.__icRevealCheck) setTimeout(window.__icRevealCheck, 50);
     if (!on) window.scrollTo({ top: 0, behavior: 'smooth' });
   }
   const unlockMenu = () => setMember(true, false);
@@ -261,6 +262,29 @@
   });
 
   try { if (localStorage.getItem(MEMBER_KEY) === '1') setMember(true, false); } catch (e) { /* storage blocked */ }
+
+  // Animace: bloky klubu se objeví při scrollování
+  if ('IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const items = document.querySelectorAll('.m-closing, .m-intro, .m-pillar, .m-step');
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((en) => { if (en.isIntersecting) { en.target.classList.add('is-visible'); io.unobserve(en.target); } });
+    }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+    items.forEach((el, i) => {
+      el.classList.add('reveal');
+      if (el.classList.contains('m-pillar')) el.style.transitionDelay = (i % 3) * 0.12 + 's';
+      io.observe(el);
+    });
+    // Pojistka: kontrola i při scrollování / změně velikosti a po přihlášení
+    const check = () => items.forEach((el) => {
+      if (el.classList.contains('is-visible')) return;
+      const r = el.getBoundingClientRect();
+      if (r.top < innerHeight - 40 && r.height) el.classList.add('is-visible');
+    });
+    addEventListener('scroll', check, { passive: true });
+    addEventListener('resize', check);
+    setTimeout(check, 300);
+    window.__icRevealCheck = check;
+  }
 
   // Pro budoucí skutečné přihlášení členů.
   window.investorsClub = { unlockMenu, setMember };

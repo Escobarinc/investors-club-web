@@ -103,3 +103,20 @@ a.q-prev { display: inline-flex; align-items: center; text-decoration: none; }
   .p-row { grid-template-columns: 1fr; gap: 10px; }
   .p-row dd { padding-left: 28px; }
 }
+
+/* ===== Animace: zaškrtnutí, průběh, přehled profilu ===== */
+@keyframes q-pop { 0% { transform: scale(.7); } 60% { transform: scale(1.15); } 100% { transform: scale(1); } }
+@keyframes q-fade-up { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+.q-opt input:checked + .q-box { animation: q-pop .28s ease-out; }
+.q-opt { transition: border-color .2s, background .2s, transform .15s; }
+.q-opt:active { transform: scale(.985); }
+.q-bar span { transition: width .5s cubic-bezier(.2,.7,.2,1); }
+.p-block { animation: q-fade-up .6s cubic-bezier(.2,.7,.2,1) both; }
+.p-block:nth-of-type(1) { animation-delay: .1s; }
+.p-block:nth-of-type(2) { animation-delay: .22s; }
+.p-block:nth-of-type(3) { animation-delay: .34s; }
+.p-block:nth-of-type(4) { animation-delay: .46s; }
+.p-chip { animation: q-fade-up .5s cubic-bezier(.2,.7,.2,1) both; animation-delay: inherit; }
+@media (prefers-reduced-motion: reduce) {
+  .q-opt input:checked + .q-box, .p-block, .p-chip { animation: none !important; }
+}
