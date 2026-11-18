@@ -160,3 +160,8 @@ body.q-page .q-main { flex: 1 0 auto; }
 .k-status:empty { display: none; }
 .k-form .hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
 @media (max-width: 640px) { .k-row { grid-template-columns: 1fr; } }
+
+/* Hlavička na podstránkách = stejná jako na hlavní stránce */
+.sub-header-wrap { max-width: 1440px; margin: 0 auto; width: 100%; background: linear-gradient(180deg, rgba(9,11,17,.85), rgba(9,11,17,.35)); }
+.sub-header-wrap header.site-header { position: relative; z-index: 5; }
+a.login-btn { text-decoration: none; }

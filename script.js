@@ -269,6 +269,8 @@
   }
 
   if (location.hash === '#kontakt') location.replace('kontakt.html');
+  if (location.hash === '#projekty') setTimeout(() => openDialog('projects'), 300);
+  if (location.hash === '#login') setTimeout(() => openDialog('login'), 300);
 
   // Pro budoucí skutečné přihlášení členů.
   window.investorsClub = { unlockMenu, setMember };
