@@ -4,6 +4,16 @@
   // Náhled variant úvodu: ?varianta=svetla
   const varianta = new URLSearchParams(location.search).get('varianta');
   if (varianta) document.documentElement.dataset.varianta = varianta;
+  // Náhled písem: ?pismo=manrope | sora | jakarta
+  const FONTS = { manrope: 'Manrope:wght@400;500;600;700', sora: 'Sora:wght@400;500;600;700', jakarta: 'Plus+Jakarta+Sans:wght@400;500;600;700' };
+  const pismo = new URLSearchParams(location.search).get('pismo');
+  if (FONTS[pismo]) {
+    const l = document.createElement('link');
+    l.rel = 'stylesheet';
+    l.href = 'https://fonts.googleapis.com/css2?family=' + FONTS[pismo] + '&display=swap';
+    document.head.appendChild(l);
+    document.documentElement.dataset.pismo = pismo;
+  }
 
   // ---- Napojení na CLARIX CRM ----
   // siteKey = klíč webu z CRM (Nastavení → Weby a měření). Bez klíče formulář nic neodešle a řekne to.

@@ -637,3 +637,19 @@ a.m-cta { text-decoration: none; }
 .h1-accent, .m-accent, .q-accent { background: linear-gradient(180deg, #ffffff 0%, #dfe5ec 45%, #a9b3bf 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
 .brand-mark { color: #dbe2ea; }
 .feature-icon, .m-pillar svg, .a-field svg { filter: drop-shadow(0 0 6px rgba(205,214,226,.18)); }
+
+/* ===== Náhled moderních písem (?pismo=…) ===== */
+html[data-pismo="manrope"] { --font-serif: "Manrope", system-ui, sans-serif; --font-sans: "Manrope", system-ui, sans-serif; }
+html[data-pismo="sora"] { --font-serif: "Sora", system-ui, sans-serif; --font-sans: "Sora", system-ui, sans-serif; }
+html[data-pismo="jakarta"] { --font-serif: "Plus Jakarta Sans", system-ui, sans-serif; --font-sans: "Plus Jakarta Sans", system-ui, sans-serif; }
+html[data-pismo] body, html[data-pismo] button, html[data-pismo] input, html[data-pismo] select { font-family: var(--font-sans); }
+html[data-pismo] .hero h1, html[data-pismo] .members h2, html[data-pismo] .m-step h3, html[data-pismo] .m-pillar h3, html[data-pismo] .m-closing h3,
+html[data-pismo] .access-card h2, html[data-pismo] .dialog-panel h2, html[data-pismo] .q-title { font-weight: 600; letter-spacing: -0.03em; }
+html[data-pismo] .hero h1 { line-height: 1.1; }
+html[data-pismo] .brand-wordmark { font-weight: 600; letter-spacing: -0.02em; }
+html[data-pismo] .feature h2 { font-weight: 600; letter-spacing: -0.01em; }
+html[data-pismo] .m-num { font-weight: 300; }
+@media (min-width: 1121px) { html[data-pismo] .hero h1 { font-size: 50px; } }
+@media (min-width: 821px) and (max-height: 860px) { html[data-pismo] .hero h1 { font-size: 46px; } }
+@media (min-width: 1121px) { html[data-pismo] .hero h1 { font-size: 44px; } html[data-pismo="sora"] .hero h1 { font-size: 40px; } }
+@media (min-width: 821px) and (max-height: 860px) { html[data-pismo] .hero h1 { font-size: 42px; } html[data-pismo="sora"] .hero h1 { font-size: 38px; } }
