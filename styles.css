@@ -350,3 +350,30 @@ header.site-header .login-btn svg { color: var(--accent); }
   header.site-header .login-btn span { display: none; }
   header.site-header .login-btn { width: 40px; padding: 0; }
 }
+
+/* ---- Mobil styl 2: fotka nahoře, texty pod ní, výhody jako seznam ---- */
+@media (max-width: 540px) {
+  .hero-shell { background: linear-gradient(180deg, rgba(11,12,17,.35) 0%, rgba(11,12,17,0) 70px, rgba(11,12,17,0) 210px, #0b0c11 300px), url("assets/hero-lounge.webp") 68% 0 / auto 310px no-repeat, #0b0c11; }
+  section#hero { padding-bottom: 34px; }
+  .hero-inner { padding: 172px 24px 0; }
+  .eyebrow { display: flex; align-items: center; gap: 12px; font-size: 12px; letter-spacing: 1.6px; line-height: 1.45; margin-bottom: 18px; }
+  .eyebrow::before { content: ""; flex: none; width: 26px; height: 1.5px; background: var(--accent); }
+  .eyebrow::after { display: none; }
+  .hero h1 { line-height: 1.08; }
+  .hero-description { margin: 18px 0 28px; }
+  .access-note { display: flex; gap: 10px; align-items: flex-start; font-style: normal; font-size: 13px; color: #cfc6bd; margin: 18px 0 0; }
+  .access-note::before { content: "✦"; color: var(--accent); font-size: 13px; line-height: 1.35; }
+  section#features { height: auto; padding: 0 14px 28px; background: #0b0c11; box-shadow: none; }
+  .features-grid { display: block; padding: 6px 22px; border-radius: 14px; background: linear-gradient(180deg, #1a1614, #141112); border: 1px solid rgba(215,182,116,.12); }
+  .feature { flex-direction: row; justify-content: flex-start; align-items: center; gap: 16px; text-align: left; padding: 18px 0; }
+  .feature:not(:last-child) { border-bottom: 1px solid rgba(255,255,255,.08); }
+  .feature:not(:last-child)::after { display: none; }
+  .feature-icon { width: 28px; height: 28px; }
+  .feature h2 { font: 400 16px/1.3 var(--font-sans); letter-spacing: 0; color: #ece5df; }
+  .feature h2 br { display: none; }
+  header.site-header .login-btn { text-transform: none; letter-spacing: .2px; font-size: 14px; border-radius: 10px; }
+}
+@media (max-width: 540px) {
+  .hero-shell { background: linear-gradient(180deg, rgba(11,12,17,.35) 0%, rgba(11,12,17,0) 70px, rgba(11,12,17,0) 190px, #0b0c11 282px), url("assets/hero-lounge.webp") 68% 0 / auto 300px no-repeat, #0b0c11; }
+  .hero-inner { padding-top: 208px; }
+}
