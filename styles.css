@@ -804,3 +804,4 @@ body.q-page footer.site-footer.f-footer { margin-top: 0; }
 /* Titulka (nepřihlášený návštěvník): v patičce jen spodní lišta s copyrightem */
 body:not(.is-member) .site-wrap .f-wrap { display: none; }
 body:not(.is-member) .site-wrap footer.site-footer.f-footer { border-top-color: rgba(205,214,226,.1); }
+.f-bottom { flex-direction: column; align-items: flex-start; gap: 6px; }
