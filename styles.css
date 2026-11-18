@@ -718,3 +718,4 @@ body.is-member .m-wrap { padding-top: 56px; }
 @media (max-width: 540px) { body.is-member .m-wrap { padding-top: 32px; } }
 @media (max-width: 820px) { header.site-header .login-btn, header.site-header .menu-toggle { align-self: center; margin-top: 0; } }
 @media (max-width: 820px) { header.site-header .brand { align-self: center; } }
+a.nav-link { text-decoration: none; display: inline-flex; align-items: center; }
