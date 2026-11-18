@@ -785,3 +785,19 @@ a.nav-link { text-decoration: none; display: inline-flex; align-items: center; }
 #contact-form .a-consent { margin-top: 0; }
 @media (max-width: 540px) { .field-row { grid-template-columns: 1fr; } }
 a.dialog-action { display: flex; text-decoration: none; }
+
+/* ===== Patička ===== */
+footer.site-footer.f-footer { height: auto; overflow: visible; background: linear-gradient(180deg, #0f1014, #0b0c10); border-top: 1px solid rgba(205,214,226,.14); color: #c9cfd7; }
+.f-wrap { max-width: 1440px; margin: 0 auto; padding: 56px 72px 40px; display: grid; grid-template-columns: minmax(0, 1.5fr) repeat(3, minmax(0, 1fr)); gap: 40px; }
+.f-brand .brand { color: var(--text); text-decoration: none; }
+.f-brand .brand-mark { width: 30px; height: 30px; }
+.f-brand .brand-wordmark { font-size: 24px; }
+.f-brand p { margin: 18px 0 0; max-width: 300px; font-size: 14px; line-height: 1.6; color: #9aa1aa; }
+.f-col h3 { margin: 6px 0 18px; color: var(--accent); font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; }
+.f-col ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+.f-col a, .f-col button { padding: 0; border: 0; background: none; color: #e3e7ec; font: inherit; font-size: 14.5px; text-align: left; text-decoration: none; cursor: pointer; transition: color .2s; }
+.f-col a:hover, .f-col button:hover { color: #ffffff; text-decoration: underline; text-underline-offset: 4px; text-decoration-color: rgba(205,214,226,.5); }
+.f-bottom { max-width: 1440px; margin: 0 auto; padding: 20px 72px 28px; border-top: 1px solid rgba(255,255,255,.07); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px; font-size: 12.5px; color: #8b929b; }
+body.q-page footer.site-footer.f-footer { margin-top: 0; }
+@media (max-width: 1120px) { .f-wrap { padding: 48px 40px 32px; grid-template-columns: repeat(3, minmax(0, 1fr)); } .f-brand { grid-column: 1 / -1; } .f-bottom { padding: 18px 40px 26px; } }
+@media (max-width: 540px) { .f-wrap { padding: 40px 24px 24px; grid-template-columns: 1fr 1fr; gap: 28px 20px; } .f-bottom { padding: 18px 24px 26px; flex-direction: column; } }
