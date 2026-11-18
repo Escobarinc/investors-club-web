@@ -1,0 +1,7 @@
+desktop {"bodyW": 1440, "innerW": 1440, "bodyH": 950, "header": 126, "hero": 632, "features": 192, "heroH1": "Klub pro investory\nod 1 mil. Kč"}
+browser test VERIFIED: desktop
+mobile {"bodyW": 390, "innerW": 390, "bodyH": 908, "header": 84, "hero": 570, "features": 254, "heroH1": "Klub pro investory\nod 1 mil. Kč"}
+browser test VERIFIED: mobile
+tablet {"bodyW": 768, "innerW": 768, "bodyH": 961, "header": 96, "hero": 610, "features": 255, "heroH1": "Klub pro investory\nod 1 mil. Kč"}
+browser test VERIFIED: tablet
+console errors []

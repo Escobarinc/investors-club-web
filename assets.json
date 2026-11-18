@@ -1,18 +1,18 @@
 {
-  "style_prefix":"Photorealistic luxury architectural editorial photography, softly sunlit warm neutral tones, golden hour, accurate perspective, high detail, no text, no logo, no watermark, no navigation, no cards, no form, no website interface",
-  "assets":[
+  "style_prefix": "photorealistic luxury penthouse lounge photography, evening cityscape at sunset, black and amber cinematic light, warm practical lamps, dark timber and glass, natural proportions, no writing, no watermark, no UI",
+  "assets": [
     {
       "id":"hero_main",
-      "slot":"section#hero .hero-photo",
-      "file":"assets/hero_main.webp",
+      "slot":"div.hero-shell",
+      "file":"assets/hero-lounge.webp",
       "gen_size":"1536x1024",
-      "slot_ratio":"1440:871",
+      "slot_ratio":"1440:758",
       "object_fit":"cover",
-      "object_position":"50% 50%",
-      "subject":"Luxury modern penthouse lounge at golden hour, vast floor-to-ceiling windows opening onto an atmospheric skyscraper skyline, cream curved sofa in right-center, low round glossy black marble coffee table with warm gold metal edging in center foreground, amber spirit decanter and two small cut-crystal tumblers on table, black leather portfolio notebook, leafy green potted plant extreme left, subtle gold vertical wall slats at far left; bright softly diffused empty wall region on left for live HTML copy. No human subjects or printed words.",
-      "subject_frame_pct":78,
-      "camera":"wide architectural interior shot, slightly elevated eye level, 28mm lens, straight verticals, editorial natural lighting",
-      "prompt":"Photorealistic luxury architectural editorial photography, softly sunlit warm neutral tones, golden hour, accurate perspective, high detail, no text, no logo, no watermark, no navigation, no cards, no form, no website interface. A spacious penthouse lounge with cream curved sofa on right, floor-to-ceiling windows and dusk city skyline, circular dark marble coffee table with golden brass edges center foreground holding elegant unlabeled amber beverage decanter, two crystal tumblers, black notebook, leafy potted plant left, vertical wood accents extreme left. Leave LEFT HALF very bright, low-contrast, open and spacious for readable HTML overlaid later. Warm off-white and bronze palette. Wide photorealistic shot. No UI, no website, no writing, no graphics."
+      "object_position":"50% 59%",
+      "subject":"Dark premium lounge with floor-to-ceiling windows, city sunset, brown leather armchair on right and crystal decanter on low central table",
+      "subject_frame_pct":64,
+      "camera":"interior wide angle, eye-level, chair on right, dark negative space on left",
+      "prompt":"photorealistic luxury penthouse lounge photography, evening cityscape at sunset, black and amber cinematic light, warm practical lamps, dark timber and glass, natural proportions, no writing, no watermark, no UI, wide angle, chair on right, table center, dark negative space on left"
     }
   ]
 }

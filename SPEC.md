@@ -1,50 +1,71 @@
-# Investors Club — rekonstrukce dodaného screenshotu
+# Investors Club — REPLICA specification
 
-MODE = REPLICA
-SOURCE = CLARIX_klub_1mil_titulka_varianta_1.png, 1536×1024, čistý screenshot; žádný ořez
-REFERENCE_WIDTH = 1440px (měření násobeno 0.9375 oproti zdroji)
-CONTAINER_MAX = 1320px; GUTTER = 44px; GRID = 2 sloupce (62.6%/37.4%)
+Reference: user-provided image, crop `(19, 22, 1289, 860)`, screenshot content 1270×838.
+Reference viewport: **1440px**; target height: **950px** (838/1270×1440 ≈ 950.17px).
 
-## Typografie (1440px)
-Primary serif: Georgia, 'Times New Roman', serif — screenshot má kontrastní moderní serif
-Sans: Arial, Helvetica, sans-serif
-Hero H1 66px /700 /1.03 / tracking -1.2px; body 25px /400 /1.34; kicker 22px /700 /1.2 / letter-spacing 2px
-Form H2 44px /700 /1.12; navigation 22px /400 /1.2; feature titles 26px /700 /1.12
-Headline exact breaks: "Vybrané projekty." / "Nové investiční možnosti."
+## Classification
+B. PRESENTATION MOCKUP. The screenshot is embedded in a light rounded presentation frame. The wrapper was cropped off; only the internal dark website is binding.
 
-## Colors (sampled/estimated from reference)
-text #101010; muted #393331; bg #fbf7f3; surface #fffdfb; border #b5aaa2; accent #9b640f; cta_bg #d6a250; cta_text #0d0a07
-CTA gradient #f0c37e → #b98325, radius 10px
+## Geometry / hard values
+- MODE: REPLICA
+- CONTAINER_MAX: 1440px
+- GUTTER: 84px on 1440px
+- GRID: header brand/links/CTA with flex; feature band four equal columns, 0px gap
+- HEADER: height 126px, transparent over shared hero photograph
+- HERO: height 632px, continuation of shared hero photograph
+- FEATURES: height 192px, full width, four equal columns
+- FOOTER: height 0px; semantic/screen-reader only to avoid inventing unseen visual material
+- TOTAL: 950px.
+- Photo shell: 758px high, background position center 59%, image overlay darkens left ~60%.
+- Hero headline region: left x84px, top y~245px (within hero top ~119px), width 720px.
+- Hero left padding: 84px; top padding: 84px (eyebrow appears around y210px).
+- H1 exact line breaks: `Klub pro investory` / `od 1 mil. Kč`
+- Hero CTA: 335×70px, radius 10px, gold background, black text.
+- Header CTA: 217×56px, radius 10px.
+- Feature icons: 42px; labels ~20px centered, 2 lines where shown.
+- Logo: custom 3-bar inline SVG icon 44×44px, text 40px (Baskerville).
 
-## Sections
-S1 header.site-header — 89px at reference width, translucent #fffaf6; logo at x=112, nav x=630-1330
-S2 section#hero — 871px; full-bleed photograph with light blank reading area left, glass skyline right; hero copy at x=113, y=70 relative to hero; access form on right
-No additional content below screenshot's fold; no invented sections, except visually quiet footer only if later requested.
-Total page height 960px at 1440px.
+## Typography (1440px)
+- Character: classic editorial serif for logo/headline, clean modern sans for labels.
+- Headline stack: Baskerville, Iowan Old Style, Georgia, Times New Roman, serif.
+- Sans stack: Arial, Helvetica Neue, Helvetica, sans-serif.
+- h1: 77px / 400 / lh 0.99 / tracking -1.8px; body: 22px / 400 / lh 1.42; eyebrow: 19px / 600, uppercase, tracking 2.8px.
+- Header nav: 17px; features: 20px / lh1.33; header logo: 40px.
+- h1/body size ratio 3.5.
 
-## Hero detail
-Hero copy: width 730px; offset x=113px y=68px
-Kicker: "VYBRANÉ INVESTIČNÍ PŘÍLEŽITOSTI OD 1 MIL. KČ"; amber underline 63px
-H1: "Vybrané projekty." / "Nové investiční možnosti." (2 lines); first black, second bronze
-H1 width 780px; body width 590px
-CTA label "POŽÁDAT O PŘÍSTUP K PROJEKTŮM"; 480×64px, radius 10px
-Form panel: x=952px, y=64px, width=447px, h=546px at reference; white translucent panel, radius 21px, thin double gold border, padded 34px
-Fields: name, phone, email, capital; each ~49px tall; card CTA 377×63px
-Benefit bar: x=44px, y=688px (hero-relative), width=1352px, height=152px; white translucent rounded 20px; 4 equal features
-Features: "Vybrané projekty", "Investiční příležitosti", "Detailní podklady", "Schvalovaný přístup"
+## Colors (approximated by sampling user image)
+- text #f7f4f3; muted #e0dcd9; background #0c0d12;
+- hero overlay #090b11; features surface #161313; divider #55453d;
+- accent #d7b674; CTA #e4c486 → #cfa567; CTA text #191a1b.
 
-## Asset manifest geometry
-hero_photo: photographic penthouse space behind UI, width 1440px, height 871px, object-fit cover, object-position 50% 50%; subject backdrop composited as separate image, no UI/text.
+## Sections, in order
+1. `<header class="site-header">` 126px — logo, nav `O klubu`, `Vybrané projekty`, `Členství`, `Kontakt`, top membership CTA.
+2. `<section id="hero">` 632px — eyebrow, headline, exact paragraph and membership CTA. One single photograph extends behind header+hero.
+3. `<section id="features">` 192px — four vertically centered cards without card backgrounds, separators, golden line icons, visible text.
+4. `<footer class="site-footer">` 0px — semantic only; screenshot shows no footer material.
 
-## Token contract
+## Visible copy, faithfully transcribed
+- INVESTORS CLUB
+- Klub pro investory / od 1 mil. Kč
+- Přístup k vybraným projektům, odborným analýzám / a investičním příležitostem, které nejsou veřejně dostupné.
+- Požádat o členství
+- Exkluzivní / projekty
+- Odborný servis / a osobní přístup
+- Detailní podklady / a analýzy
+- Diskrétnost / a soukromí
+
+## CSS root tokens
+```css
 :root {
-  --header-h:89px; --hero-h:871px; --container-max:1320px; --gutter:44px;
-  --ink:#101010; --muted:#393331; --bg:#fbf7f3; --surface:#fffdfb;
-  --border:#b5aaa2; --accent:#9b640f; --cta:#d6a250; --cta-text:#0d0a07;
-  --serif:Georgia,'Times New Roman',serif; --sans:Arial,Helvetica,sans-serif;
-  --h1:66px; --h1-leading:1.03; --body:25px; --body-leading:1.34;
-  --panel-radius:21px; --button-radius:10px;
+  --content-width:1440px; --gutter:84px;
+  --header-height:126px; --hero-height:632px; --features-height:192px; --footer-height:0px;
+  --font-serif:Baskerville,"Iowan Old Style",Georgia,"Times New Roman",serif;
+  --font-sans:Arial,"Helvetica Neue",Helvetica,sans-serif;
+  --text:#f7f4f3; --muted:#e0dcd9; --bg:#0c0d12; --surface:#161313;
+  --divider:#55453d; --accent:#d7b674; --cta-start:#e4c486; --cta-end:#cfa567;
+  --cta-text:#191a1b; --cta-radius:10px;
+  --logo-size:40px; --h1-size:77px; --h1-lh:.99; --body-size:22px;
+  --eyebrow-size:19px; --nav-size:17px; --feature-label-size:20px;
+  --hero-cta-width:335px; --hero-cta-height:70px; --header-cta-width:217px; --header-cta-height:56px;
 }
-
-### Verified vs inferred
-Measurements manually derived from the single PNG. Font family is an approximation; no font files or brand manual supplied. Form must demonstrate local validation without implying real SMS verification, membership approval, or a back-end integration.
+```

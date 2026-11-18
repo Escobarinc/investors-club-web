@@ -1,23 +1,18 @@
-# Investors Club — světlá verze
-
-Statická landing page podle podkladu „Vybrané projekty. Nové investiční možnosti.“ (světlý design, formulář Žádost o přístup v úvodní části).
-
-Živě: https://escobarinc.github.io/investors-club-web/
+# Investors Club — responzivní replika
 
 ## Spuštění
 
-Otevřete `index.html` v prohlížeči, případně spusťte lokální server ve složce webu. Není potřeba build ani instalace.
+Rozbalte ZIP a otevřete `index.html` přímo v prohlížeči. Není potřeba instalace, internet ani build.
 
 ## Co je funkční
 
-- Na začátku je vidět jen úvod s tlačítkem „Požádat o přístup k projektům“, bez menu a bez formuláře.
-- Kliknutí na tlačítko otevře formulář Žádost o přístup (kontrola jména, telefonu, e-mailu a investičního kapitálu).
-- Ukázkový krok ověření SMS kódem (demo kód `123456`, žádná SMS se neposílá).
-- Po udělení přístupu se zobrazí menu (O klubu, Vybrané projekty, Jak to funguje, Kontakt). Prohlížeč si přístup pamatuje (localStorage `ic-access-granted`).
-- Mobilní menu a responzivní rozložení.
+- Počítačová i mobilní navigace včetně přístupného mobilního menu.
+- Dialogy O klubu, Vybrané projekty, Členství, Kontakt.
+- Formuláře s validací a potvrzovacím stavem.
+- Klávesnice: Tab, Enter, Space, Escape; správa zaměření v dialogu.
 
 ## Co není připojené
 
-Formulář nic neodesílá ani neukládá. Chybí napojení na CRM, SMS bránu a právní texty (zpracování osobních údajů).
+Z důvodu chybějícího API, e-mailu a CRM se žádosti skutečně neodesílají. Dialog to viditelně sděluje. Vybrané projekty, výnosy ani kontaktní údaje se nevymýšlejí.
 
-Předchozí tmavá verze webu je v historii gitu (commit `304e847`).
+`SPEC.md` a `geometry.json` obsahují závazné rozměry. `assets.json` obsahuje manifest fotografického pozadí a `ASSUMPTIONS.md` výslovně uvádí odhady.

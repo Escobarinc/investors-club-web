@@ -1,178 +1,145 @@
-'use strict';
+/* Investors Club — functional offline demo interactions. */
+(() => {
+  'use strict';
+  const layer = document.getElementById('dialog-layer');
+  const panel = document.getElementById('dialog-panel');
+  const content = document.getElementById('dialog-content');
+  const closeButton = document.getElementById('dialog-close');
+  const menuToggle = document.getElementById('menu-toggle');
+  const menu = document.getElementById('main-nav');
+  let previousFocus = null;
 
-// Functional browser-only demo: no network, no external dependencies, no data persistence.
-const $ = (selector) => document.querySelector(selector);
-const byId = (id) => document.getElementById(id);
-const menu = byId('mobileNav');
-const toggleMenu = byId('mobileMenuToggle');
-const dialog = byId('infoDialog');
-const initial = byId('formInitial');
-const verify = byId('formVerify');
-const success = byId('formSuccess');
-const fields = {
-  name: byId('fullName'),
-  phone: byId('phone'),
-  email: byId('email'),
-  capital: byId('capital')
-};
-const errors = {
-  name: byId('nameError'),
-  phone: byId('phoneError'),
-  email: byId('emailError'),
-  capital: byId('capitalError')
-};
+  const dialogs = {
+    about: `
+      <h2 id="dialog-title">O Investors Club</h2>
+      <p>Klub pro investory od 1 mil. Kč. Přístup k vybraným projektům, odborným analýzám a investičním příležitostem, které nejsou veřejně dostupné.</p>
+      <ul class="facts"><li>Exkluzivní projekty</li><li>Odborný servis a osobní přístup</li><li>Detailní podklady a analýzy</li><li>Diskrétnost a soukromí</li></ul>
+      <button type="button" class="cta dialog-action" data-open="membership">Požádat o členství</button>`,
+    projects: `
+      <h2 id="dialog-title">Vybrané projekty</h2>
+      <p>V předloze nejsou uvedeny konkrétní investiční projekty, jejich podmínky ani výnosy. Proto je zde neuvádíme bez ověřených podkladů.</p>
+      <p>Pro podrobnosti o možnostech členství otevřete nezávaznou žádost.</p>
+      <button type="button" class="cta dialog-action" data-open="membership">Informace o členství</button>`,
+    membership: `
+      <h2 id="dialog-title">Požádat o členství</h2>
+      <p class="dialog-intro">Vyplňte nezávaznou žádost o informace k členství v Investors Club.</p>
+      <div class="demo-notice">Funkční ukázka formuláře. Propojení na e-mail nebo CRM není nastavené; údaje se nikam neodesílají.</div>
+      <form id="membership-form" class="form-grid" novalidate>
+        <div class="field"><label for="member-name">Jméno a příjmení *</label><input id="member-name" name="name" type="text" autocomplete="name" maxlength="100" required><small data-error-for="member-name" aria-live="polite"></small></div>
+        <div class="field"><label for="member-email">E-mail *</label><input id="member-email" name="email" type="email" autocomplete="email" maxlength="200" required><small data-error-for="member-email" aria-live="polite"></small></div>
+        <div class="field"><label for="member-phone">Telefon (nepovinné)</label><input id="member-phone" name="phone" type="tel" autocomplete="tel" maxlength="40"></div>
+        <div class="field"><label for="member-volume">Předpokládaná výše investice</label><select id="member-volume" name="volume"><option value="">Zvolit možnost</option><option value="1–3 mil. Kč">1–3 mil. Kč</option><option value="3–10 mil. Kč">3–10 mil. Kč</option><option value="10+ mil. Kč">Více než 10 mil. Kč</option></select></div>
+        <button type="submit" class="cta dialog-submit">Pokračovat</button>
+      </form>`,
+    contact: `
+      <h2 id="dialog-title">Kontakt</h2>
+      <p class="dialog-intro">Pro dotazy k Investors Club můžete připravit zprávu.</p>
+      <div class="demo-notice">Funkční ukázka bez napojení na e-mail. Neuvádíme neověřenou kontaktní adresu.</div>
+      <form id="contact-form" class="form-grid" novalidate>
+        <div class="field"><label for="contact-name">Jméno a příjmení *</label><input id="contact-name" name="name" type="text" autocomplete="name" maxlength="100" required><small data-error-for="contact-name" aria-live="polite"></small></div>
+        <div class="field"><label for="contact-email">E-mail *</label><input id="contact-email" name="email" type="email" autocomplete="email" maxlength="200" required><small data-error-for="contact-email" aria-live="polite"></small></div>
+        <div class="field"><label for="contact-message">Zpráva *</label><textarea id="contact-message" name="message" maxlength="3000" required></textarea><small data-error-for="contact-message" aria-live="polite"></small></div>
+        <button type="submit" class="cta dialog-submit">Připravit zprávu</button>
+      </form>`
+  };
 
-const info = {
-  club: {
-    title: 'O klubu',
-    text: 'Investors Club nabízí přístup k vybraným investičním projektům od 1 milionu Kč. Přístup do klubu podléhá individuálnímu schválení.'
-  },
-  projects: {
-    title: 'Vybrané projekty',
-    text: 'Projekty mají různé výnosy, podmínky a formy zajištění. Konkrétní nabídky nejsou v dodaném podkladu uvedeny a v tomto demu nejsou zveřejněny.'
-  },
-  how: {
-    title: 'Jak to funguje',
-    text: 'Zájemce vyplní žádost o přístup. V reálném provozu následuje ověření telefonního čísla a individuální posouzení žádosti. Tento web pouze ukazuje průchod formulářem; neposílá SMS ani žádost.'
+  function closeMenu() {
+    menu.classList.remove('is-open');
+    menuToggle.setAttribute('aria-expanded', 'false');
+    menuToggle.setAttribute('aria-label','Otevřít navigaci');
   }
-};
-
-function closeMenu() {
-  menu.hidden = true;
-  toggleMenu.setAttribute('aria-expanded', 'false');
-  toggleMenu.setAttribute('aria-label', 'Otevřít nabídku');
-}
-
-toggleMenu.addEventListener('click', () => {
-  const open = menu.hidden;
-  menu.hidden = !open;
-  toggleMenu.setAttribute('aria-expanded', String(open));
-  toggleMenu.setAttribute('aria-label', open ? 'Zavřít nabídku' : 'Otevřít nabídku');
-});
-
-const ACCESS_KEY = 'ic-access-granted';
-function unlockMenu() {
-  document.body.classList.remove('access-locked');
-}
-try { if (localStorage.getItem(ACCESS_KEY) === '1') unlockMenu(); } catch (e) {}
-
-function focusApplication() {
-  closeMenu();
-  if (dialog.open) dialog.close();
-  const card = byId('applicationCard');
-  if (card.hidden) {
-    card.hidden = false;
-    card.classList.add('is-revealed');
-  }
-  byId('applicationCard').scrollIntoView({behavior: 'smooth', block: 'center'});
-  if (!initial.hidden) window.setTimeout(() => fields.name.focus({preventScroll:true}), 200);
-}
-
-byId('requestAccess').addEventListener('click', focusApplication);
-byId('dialogApply').addEventListener('click', focusApplication);
-
-for (const link of document.querySelectorAll('[data-info]')) {
-  link.addEventListener('click', (event) => {
-    event.preventDefault();
+  function openDialog(type) {
+    if (!Object.hasOwn(dialogs,type)) return;
+    if (layer.hidden) previousFocus = document.activeElement;
     closeMenu();
-    const data = info[link.dataset.info];
-    byId('dialogTitle').textContent = data.title;
-    byId('dialogText').textContent = data.text;
-    dialog.showModal();
+    content.innerHTML = dialogs[type];
+    layer.hidden = false;
+    document.body.classList.add('modal-open');
+    panel.focus();
+  }
+  function closeDialog() {
+    if (layer.hidden) return;
+    layer.hidden = true;
+    document.body.classList.remove('modal-open');
+    content.replaceChildren();
+    if (previousFocus && document.contains(previousFocus)) previousFocus.focus();
+    previousFocus = null;
+  }
+  function formFeedback(form) {
+    let valid = true;
+    const fields = Array.from(form.querySelectorAll('input[required], textarea[required]'));
+    fields.forEach((input) => {
+      const error = form.querySelector(`[data-error-for="${input.id}"]`);
+      let message = '';
+      if (!input.value.trim()) message = 'Vyplňte prosím toto pole.';
+      else if (input.type === 'email' && !input.validity.valid) message = 'Zadejte platnou e-mailovou adresu.';
+      input.setAttribute('aria-invalid', message ? 'true' : 'false');
+      if (error) error.textContent = message;
+      if (message) valid = false;
+    });
+    if (!valid) {
+      const first = form.querySelector('[aria-invalid="true"]');
+      if (first) first.focus();
+    }
+    return valid;
+  }
+  function finishDemo(kind) {
+    const label = kind === 'membership' ? 'Žádost je připravená' : 'Zpráva je připravená';
+    content.innerHTML = `<h2 id="dialog-title">${label}</h2>
+      <p class="success-title">Kontrola údajů proběhla úspěšně.</p>
+      <p>Jde o lokální ukázku webu. <strong>Nic nebylo odesláno</strong> ani uloženo na server. Pro skutečné žádosti je potřeba připojit e-mail nebo CRM.</p>
+      <div class="success-actions"><button type="button" class="secondary-btn" id="return-form">Upravit novou žádost</button><button type="button" class="cta secondary-btn" id="close-success">Zavřít</button></div>`;
+    const back = content.querySelector('#return-form');
+    back.textContent = kind === 'membership' ? 'Nová žádost' : 'Nová zpráva';
+    back.addEventListener('click', () => openDialog(kind));
+    content.querySelector('#close-success').addEventListener('click',closeDialog);
+    panel.focus();
+  }
+  document.addEventListener('click',(event) => {
+    const trigger = event.target.closest('[data-open]');
+    if (trigger) {
+      event.preventDefault();
+      openDialog(trigger.dataset.open);
+      return;
+    }
+    if (event.target.closest('[data-dismiss]')) closeDialog();
   });
-}
-
-for (const link of document.querySelectorAll('[data-action="contact"]')) {
-  link.addEventListener('click', (event) => {
+  content.addEventListener('submit',(event) => {
+    const form = event.target;
+    if (!form.matches('form')) return;
     event.preventDefault();
-    focusApplication();
+    if (!formFeedback(form)) return;
+    finishDemo(form.id === 'membership-form' ? 'membership' : 'contact');
   });
-}
-byId('closeDialog').addEventListener('click', () => dialog.close());
-dialog.addEventListener('click', (event) => {
-  if (event.target === dialog) dialog.close();
-});
-document.addEventListener('keydown', (event) => {
-  if (event.key === 'Escape') closeMenu();
-});
-
-function validate(id) {
-  const element = fields[id];
-  let error = '';
-  const value = element.value.trim();
-  if (id === 'name') {
-    if (value.length < 3 || value.split(/\s+/).length < 2) error = 'Zadejte jméno i příjmení.';
-  } else if (id === 'phone') {
-    const phoneDigits = value.replace(/\D/g, '');
-    if (phoneDigits.length < 9 || phoneDigits.length > 15) error = 'Zadejte platné telefonní číslo.';
-  } else if (id === 'email') {
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) error = 'Zadejte platný e-mail.';
-  } else if (id === 'capital') {
-    if (!value) error = 'Vyberte investiční kapitál.';
-  }
-  element.closest('.field').classList.toggle('invalid', Boolean(error));
-  element.setAttribute('aria-invalid', String(Boolean(error)));
-  element.setAttribute('aria-describedby', id + 'Error');
-  errors[id].textContent = error;
-  return !error;
-}
-
-for (const [id, element] of Object.entries(fields)) {
-  element.addEventListener('input', () => {
-    if (element.closest('.field').classList.contains('invalid')) validate(id);
+  content.addEventListener('input',(event) => {
+    const input = event.target;
+    if (!input.matches('input,textarea')) return;
+    input.setAttribute('aria-invalid','false');
+    const feedback = content.querySelector(`[data-error-for="${input.id}"]`);
+    if (feedback) feedback.textContent = '';
   });
-  element.addEventListener('change', () => validate(id));
-}
-
-byId('applicationForm').addEventListener('submit', (event) => {
-  event.preventDefault();
-  const results = Object.keys(fields).map((id) => [id, validate(id)]);
-  const invalid = results.find(([,valid]) => !valid);
-  if (invalid) {
-    fields[invalid[0]].focus();
-    return;
-  }
-  initial.hidden = true;
-  verify.hidden = false;
-  success.hidden = true;
-  byId('verificationCode').value = '';
-  byId('verifyError').hidden = true;
-  byId('verificationCode').focus();
-});
-
-function demoVerify() {
-  const good = byId('verificationCode').value.trim() === '123456';
-  byId('verifyError').hidden = good;
-  if (good) {
-    verify.hidden = true;
-    success.hidden = false;
-    unlockMenu();
-    try { localStorage.setItem(ACCESS_KEY, '1'); } catch (e) {}
-    byId('restartButton').focus();
-  } else {
-    byId('verificationCode').focus();
-  }
-}
-byId('verifyButton').addEventListener('click', demoVerify);
-byId('verificationCode').addEventListener('keydown', (event) => {
-  if (event.key === 'Enter') demoVerify();
-});
-byId('verificationCode').addEventListener('input', () => {
-  byId('verifyError').hidden = true;
-});
-byId('backButton').addEventListener('click', () => {
-  verify.hidden = true;
-  initial.hidden = false;
-  fields.phone.focus();
-});
-byId('restartButton').addEventListener('click', () => {
-  byId('applicationForm').reset();
-  for (const [id, element] of Object.entries(fields)) {
-    element.closest('.field').classList.remove('invalid');
-    element.removeAttribute('aria-invalid');
-    errors[id].textContent = '';
-  }
-  success.hidden = true;
-  initial.hidden = false;
-  fields.name.focus();
-});
+  closeButton.addEventListener('click',closeDialog);
+  menuToggle.addEventListener('click',() => {
+    const open = menuToggle.getAttribute('aria-expanded') !== 'true';
+    menu.classList.toggle('is-open', open);
+    menuToggle.setAttribute('aria-expanded', String(open));
+    menuToggle.setAttribute('aria-label',open?'Zavřít navigaci':'Otevřít navigaci');
+  });
+  document.addEventListener('keydown',(event) => {
+    if (event.key === 'Escape') {
+      if (!layer.hidden) closeDialog();
+      else closeMenu();
+      return;
+    }
+    if (event.key !== 'Tab' || layer.hidden) return;
+    const controls = Array.from(panel.querySelectorAll('button:not([disabled]),input:not([disabled]),select:not([disabled]),textarea:not([disabled]),a[href]'));
+    if (!controls.length) return;
+    const first = controls[0],last = controls[controls.length-1];
+    if (event.shiftKey && (document.activeElement === first || document.activeElement === panel)) { event.preventDefault(); last.focus(); }
+    else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
+  });
+  document.addEventListener('click',(event) => {
+    if (!menu.contains(event.target) && !menuToggle.contains(event.target)) closeMenu();
+  });
+  window.addEventListener('resize',() => { if (window.innerWidth > 820) closeMenu(); });
+})();

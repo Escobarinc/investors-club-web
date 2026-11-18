@@ -1,0 +1,33 @@
+
+  manifest entries: 1   asset files on disk: 1   referenced files: 4
+
+  GEOMETRY  (reference width 1440px, tolerance +/-3%)
+  section                spec        css     delta
+  ------------------------------------------------
+  header                126px      126px     +0.0%
+  hero                  632px      632px     +0.0%
+  features              192px      192px     +0.0%
+  ------------------------------------------------
+  total: spec 950px   css 950px   +0.0%
+  page ratio: spec 0.66   css 0.66
+
+
+====================================================================
+  VERIFY REPORT
+====================================================================
+  [PASS] entry point index.html             
+  [PASS] all referenced files exist         
+  [PASS] stylesheet linked                  
+  [PASS] stylesheets non-trivial            
+  [PASS] scripts non-empty                  
+  [PASS] no absolute/sandbox paths          
+  [PASS] no embedded base64 images          
+  [PASS] no orphaned assets                 
+  [PASS] manifest assets exist on disk      
+  [PASS] manifest assets used in code       
+  [PASS] every section has a fixed height   
+  [PASS] section heights match spec         
+  [PASS] total page height matches spec     spec 950px vs css 950px (+0.0%)
+--------------------------------------------------------------------
+  RESULT: ALL CHECKS PASSED
+====================================================================

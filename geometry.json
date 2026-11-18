@@ -1,9 +1,11 @@
 {
   "reference_width": 1440,
-  "page_height": 960,
+  "page_height": 950,
   "tolerance_pct": 3,
   "sections": [
-    {"id":"header", "selector":"header.site-header", "height":89},
-    {"id":"hero", "selector":"section#hero", "height":871}
+    {"id":"header","selector":"header.site-header","height":126},
+    {"id":"hero","selector":"section#hero","height":632},
+    {"id":"features","selector":"section#features","height":192},
+    {"id":"footer","selector":"footer.site-footer","height":0}
   ]
 }
