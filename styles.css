@@ -523,3 +523,29 @@ header.site-header .login-btn svg { color: var(--accent); }
   html:not([data-varianta="svetla"]) .cta-hero { height: 50px; font-size: 15px; }
   html:not([data-varianta="svetla"]) .feature h2 { font-size: 19px; }
 }
+
+/* Karta: vycentrovat do prostoru mezi hlavičkou a lištou výhod */
+@media (min-width: 821px) {
+  html:not([data-varianta="svetla"]) { --hdr: 126px; }
+  html:not([data-varianta="svetla"]) .access-card { top: calc(var(--hdr) + (100% - var(--hdr) - var(--features-height)) / 2); max-height: calc(100% - var(--hdr) - var(--features-height) - 24px); }
+}
+@media (min-width: 821px) and (max-height: 860px) {
+  html:not([data-varianta="svetla"]) { --hdr: 100px; }
+  html:not([data-varianta="svetla"]) .access-card { padding: 24px 28px 18px; }
+  html:not([data-varianta="svetla"]) .access-card h2 { font-size: 32px; }
+  html:not([data-varianta="svetla"]) .access-card h2::after { margin: 12px 0 14px; }
+  html:not([data-varianta="svetla"]) .a-field { height: 46px; margin-top: 10px; }
+  html:not([data-varianta="svetla"]) .a-field:first-of-type { margin-top: 0; }
+  html:not([data-varianta="svetla"]) .a-field input, html:not([data-varianta="svetla"]) .a-field select { font-size: 15px; }
+  html:not([data-varianta="svetla"]) .a-field svg { width: 20px; height: 20px; }
+  html:not([data-varianta="svetla"]) .a-consent { margin-top: 12px; }
+  html:not([data-varianta="svetla"]) .a-submit { height: 50px; margin-top: 14px; font-size: 15px; }
+  html:not([data-varianta="svetla"]) .a-note { margin-top: 10px; font-size: 12px; }
+}
+@media (min-width: 821px) and (max-height: 720px) {
+  html:not([data-varianta="svetla"]) { --hdr: 84px; }
+  html:not([data-varianta="svetla"]) .access-card { padding: 20px 26px 16px; }
+  html:not([data-varianta="svetla"]) .access-card h2 { font-size: 28px; }
+  html:not([data-varianta="svetla"]) .a-field { height: 42px; }
+  html:not([data-varianta="svetla"]) .a-submit { height: 46px; }
+}
