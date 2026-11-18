@@ -183,7 +183,7 @@
     'access-name': (v) => (v.length < 3 || v.split(/\s+/).length < 2) ? 'Zadejte jméno i příjmení.' : '',
     'access-phone': (v) => /^\d{9}$/.test(v.replace(/\s/g, '')) ? '' : 'Zadejte 9 číslic telefonního čísla.',
     'access-email': (v) => emailOk(v) ? '' : EMAIL_MSG,
-    'access-capital': (v) => v ? '' : 'Vyberte investiční kapitál.',
+    'access-capital': (v) => v ? '' : 'Vyberte orientační výši plánované investice.',
     'access-consent': (_, el) => el.checked ? '' : 'Bez souhlasu nemůžeme žádost zpracovat.'
   };
   function check(el) {
@@ -211,7 +211,7 @@
       name: data.name, email: data.email, phone: data.phone,
       ...(data.consent !== undefined ? { consent: data.consent } : {}),
       formular: data.formular || CRM.formName,
-      message: data.message || ('Investiční kapitál: ' + data.capital),
+      message: data.message || ('Orientační výše plánované investice: ' + data.capital),
       company_website: data.hp,
       u: utm(), p: location.pathname, h: location.host,
       lp: location.pathname, rf: document.referrer || '',
