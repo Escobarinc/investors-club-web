@@ -5,7 +5,7 @@
   // siteKey = klíč webu z CRM (Nastavení → Weby a měření). Bez klíče formulář nic neodešle a řekne to.
   const CRM = {
     origin: 'https://clarix-crm.onrender.com',
-    siteKey: '',
+    siteKey: 'EJriGtp3Bd0kxIGt',
     formName: 'Žádost o přístup'
   };
 
@@ -30,6 +30,13 @@
       gc: q.get('gclid') || '', fc: q.get('fbclid') || '',
       dv: innerWidth < 768 ? 'm' : innerWidth < 1100 ? 't' : 'd'
     };
+    // Když běží měřicí kód, pošle se lead přes něj – CRM ho pak spáruje s návštěvou na webu.
+    if (window.clarixTrack && window.clarixTrack.lead) {
+      const r = await window.clarixTrack.lead({ name: body.name, email: body.email, phone: body.phone, consent: body.consent,
+        formular: body.formular, message: body.message, company_website: body.company_website });
+      if (r && r.error) throw new Error(r.error);
+      return;
+    }
     // text/plain + no-cors: požadavek dojde do CRM i bez CORS hlaviček (odpověď prohlížeč nepřečte).
     await fetch(CRM.origin + '/api/t/lead', {
       method: 'POST', mode: 'no-cors', keepalive: true,
@@ -37,5 +44,12 @@
       body: JSON.stringify(body)
     });
   };
+  // Měřicí kód CRM: návštěvy, scroll, kliky, odkud lidé přišli.
+  if (CRM.siteKey && !document.getElementById('crm-t')) {
+    const t = document.createElement('script');
+    t.id = 'crm-t'; t.async = true;
+    t.src = CRM.origin + '/api/t.js?k=' + encodeURIComponent(CRM.siteKey);
+    document.head.appendChild(t);
+  }
   window.IC_CRM = CRM;
 })();
