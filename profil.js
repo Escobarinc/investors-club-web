@@ -1,4 +1,4 @@
-/* Investors Club — přehled investičního profilu (co člen odpověděl v dotazníku). */
+/* Select Club — přehled investičního profilu (co člen odpověděl v dotazníku). */
 (() => {
   'use strict';
 

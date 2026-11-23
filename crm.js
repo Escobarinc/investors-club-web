@@ -1,4 +1,4 @@
-/* Investors Club — napojení na CLARIX CRM (sdílené: žádost o přístup, kontakt). */
+/* Select Club — napojení na CLARIX CRM (sdílené: žádost o přístup, kontakt). */
 (() => {
   'use strict';
   // ---- Napojení na CLARIX CRM ----

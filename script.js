@@ -1,4 +1,4 @@
-/* Investors Club — interakce: karta Žádost o přístup (lead do CLARIX CRM), Login, menu pro členy. */
+/* Select Club — interakce: karta Žádost o přístup (lead do CLARIX CRM), Login, menu pro členy. */
 (() => {
   'use strict';
   // Náhled variant úvodu: ?varianta=svetla
@@ -54,7 +54,7 @@
   const dialogs = {
     about: `
       <h2 id="dialog-title">O klubu</h2>
-      <p>Investors Club nabízí přístup k vybraným investičním projektům od 1 mil. Kč. Přístup do klubu podléhá individuálnímu schválení.</p>
+      <p>Select Club nabízí přístup k vybraným investičním projektům od 1 mil. Kč. Přístup do klubu podléhá individuálnímu schválení.</p>
       <ul class="facts"><li>Vybrané projekty</li><li>Investiční příležitosti</li><li>Detailní podklady</li><li>Schvalovaný přístup</li></ul>`,
     projects: `
       <h2 id="dialog-title">Vybrané projekty</h2>

@@ -1,4 +1,4 @@
-/* Investors Club — Investiční profil (dotazník pro členy).
+/* Select Club — Investiční profil (dotazník pro členy).
    Zadání: „Investiční profily obou investorských klubů“, varianta 01 Investiční klub od 1 mil. Kč.
    Pravidla: jedna odpověď (01–03, 06–08, 10–11), 1–3 odpovědi (04, 05, 09), libovolně mnoho (12–15).
    Odpovědi se zatím ukládají jen v prohlížeči (napojení na CRM je samostatný krok). */

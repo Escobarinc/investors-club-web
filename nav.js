@@ -1,4 +1,4 @@
-/* Investors Club — hlavička na podstránkách: menu pro členy, Login / Odhlásit, mobilní menu. */
+/* Select Club — hlavička na podstránkách: menu pro členy, Login / Odhlásit, mobilní menu. */
 (() => {
   'use strict';
   let member = false;

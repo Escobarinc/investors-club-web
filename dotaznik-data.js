@@ -1,4 +1,4 @@
-/* Investors Club — otázky investičního profilu (sdílené: dotazník i přehled profilu). */
+/* Select Club — otázky investičního profilu (sdílené: dotazník i přehled profilu). */
 window.IC_PROFILE = (() => {
   const blocks = [
     {

@@ -1,4 +1,4 @@
-/* Investors Club — stránka Kontakt: zpráva + preferovaný čas spojení (po–pá, 9:00–19:00 po 30 min) → CRM. */
+/* Select Club — stránka Kontakt: zpráva + preferovaný čas spojení (po–pá, 9:00–19:00 po 30 min) → CRM. */
 (() => {
   'use strict';
 
@@ -21,7 +21,7 @@
   for (let m = 9 * 60; m <= 19 * 60; m += 30) times.push(`${Math.floor(m / 60)}:${m % 60 ? '30' : '00'}`);
 
   card.innerHTML = `
-    <p class="q-eyebrow">Investors Club</p>
+    <p class="q-eyebrow">Select Club</p>
     <h1 class="q-title">Kontakt</h1>
     <p class="q-text">Napište nám zprávu a zvolte, kdy se vám máme ozvat.</p>
     <form id="contact-form" class="k-form" novalidate>
@@ -89,7 +89,7 @@
         hp: form.company_website.value
       });
       card.innerHTML = `
-        <p class="q-eyebrow">Investors Club</p>
+        <p class="q-eyebrow">Select Club</p>
         <h1 class="q-title">Děkujeme za zprávu</h1>
         <p class="q-text">Ozveme se vám ${day || time ? 'v termínu: <strong>' + pref + '</strong>' : 'co nejdříve'}.</p>
         <div class="q-nav"><a class="cta q-next" href="index.html">Zpět na web ${arrow}</a></div>`;
