@@ -830,3 +830,11 @@ body:not(.is-member) .site-wrap footer.site-footer.f-footer { border-top-color: 
 .f-legal { gap: 6px 20px; margin-top: 4px; }
 .f-legal a, .f-legal button { font-size: 10px; }
 @media (max-width: 540px) { .f-bottom, .f-legal a, .f-legal button { font-size: 10px; } .f-legal { gap: 6px 14px; } }
+
+/* ===== Logo Select Club v hlavičce ===== */
+.brand-logo { display: inline-flex; align-items: center; gap: 14px; text-decoration: none; }
+.brand-logo .logo-mark { height: 40px; width: auto; display: block; }
+.brand-logo .logo-word { height: 16px; width: auto; display: block; }
+@media (max-width: 820px) { .brand-logo { gap: 10px; } .brand-logo .logo-mark { height: 32px; } .brand-logo .logo-word { height: 13px; } }
+@media (max-width: 380px) { .brand-logo .logo-word { height: 11px; } }
+@media (min-width: 821px) { .brand-logo .logo-mark { height: 46px; } .brand-logo .logo-word { height: 18px; } }
