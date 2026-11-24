@@ -44,12 +44,14 @@
       body: JSON.stringify(body)
     });
   };
-  // Měřicí kód CRM: návštěvy, scroll, kliky, odkud lidé přišli.
-  if (CRM.siteKey && !document.getElementById('crm-t')) {
+  // Měřicí kód CRM (návštěvy, scroll, kliky, odkud lidé přišli) je analytická technologie –
+  // načte ho až cookies.js po souhlasu s analytickými cookies. Poptávky se posílají i bez souhlasu.
+  window.loadCrmTracking = () => {
+    if (!CRM.siteKey || document.getElementById('crm-t')) return;
     const t = document.createElement('script');
     t.id = 'crm-t'; t.async = true;
     t.src = CRM.origin + '/api/t.js?k=' + encodeURIComponent(CRM.siteKey);
     document.head.appendChild(t);
-  }
+  };
   window.IC_CRM = CRM;
 })();
