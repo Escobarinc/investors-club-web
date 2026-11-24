@@ -38,7 +38,7 @@
  const bar=document.createElement('section');
  bar.className='ck-bar';bar.hidden=true;bar.setAttribute('role','dialog');bar.setAttribute('aria-labelledby','ck-title');
  bar.innerHTML=`<div class="ck-inner">
-  <div class="ck-l1"><h2 id="ck-title">Nastavení soukromí</h2><p>Na tomto webu používáme nezbytné technologie pro jeho fungování. S vaším souhlasem využíváme také analytické a marketingové cookies a podobné technologie pro měření návštěvnosti a účinnosti reklam. Podrobnosti najdete v ${LINKS}.</p></div>
+  <div class="ck-l1"><h2 id="ck-title">Nastavení soukromí</h2> <p>Nezbytné technologie používáme vždy, analytické a marketingové cookies jen s vaším souhlasem. Více v <a href="zasady-cookies.html">Zásadách cookies</a> a <a href="zasady-ochrany-osobnich-udaju.html">Ochraně osobních údajů</a>.</p></div>
   <div class="ck-l2" hidden><div class="ck-grid">${cat('nezbytne','Nezbytné','Základní funkčnost, bezpečnost a uložení volby souhlasu. Bez souhlasu, jen v zákonném nezbytném rozsahu.')}${cat('analyticke','Analytické','Statistiky návštěvnosti, používání stránek a konverzí. Pouze se souhlasem.')}${cat('marketingove','Marketingové','Měření účinnosti reklam, přiřazení konverzí a případné reklamní publikum. Pouze se souhlasem.')}</div><p class="ck-docs">Podrobnosti v ${LINKS}.</p></div>
   <div class="ck-actions"><button type="button" class="ck-btn" data-ck-act="none">Odmítnout vše</button><button type="button" class="ck-btn" data-ck-act="settings">Nastavení</button><button type="button" class="ck-btn" data-ck-act="save" hidden>Uložit nastavení</button><button type="button" class="ck-btn" data-ck-act="all">Přijmout vše</button></div>
   <button type="button" class="ck-handle" aria-label="Skrýt nastavení soukromí" hidden></button></div>`;
@@ -47,7 +47,7 @@
  tab.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9 3 3 0 0 1-3.5-3A3 3 0 0 1 14 5.5 3 3 0 0 1 12 3z"/><circle cx="8.5" cy="10.5" r=".9"/><circle cx="12" cy="15.5" r=".9"/><circle cx="16" cy="13" r=".9"/></svg>Cookies';
  document.body.append(bar,tab);
  const $=s=>bar.querySelector(s);
- const layer=two=>{$('.ck-l2').hidden=!two;$('[data-ck-act="settings"]').hidden=two;$('[data-ck-act="save"]').hidden=!two};
+ const layer=two=>{bar.classList.toggle('is-l2',!!two);$('.ck-l2').hidden=!two;$('[data-ck-act="settings"]').hidden=two;$('[data-ck-act="save"]').hidden=!two};
  const open=(two)=>{const c=window.selectConsent||{};bar.querySelectorAll('[data-ck]').forEach(b=>b.checked=!!c[b.dataset.ck]);layer(!!two);$('.ck-handle').hidden=!window.selectConsent;bar.hidden=false;tab.hidden=true;requestAnimationFrame(()=>bar.classList.add('is-open'))};
  const close=()=>{bar.classList.remove('is-open');setTimeout(()=>{bar.hidden=true;tab.hidden=false},250)};
  bar.addEventListener('click',e=>{

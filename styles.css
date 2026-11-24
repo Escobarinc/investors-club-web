@@ -885,3 +885,25 @@ body:not(.is-member) .site-wrap footer.site-footer.f-footer { border-top-color: 
 .legal ul { margin: 0 0 12px; padding-left: 20px; }
 @media (max-width: 900px) { .ck-grid { grid-template-columns: 1fr; } }
 @media (max-width: 700px) { .ck-inner { padding: 16px 16px 24px; } .ck-actions { flex-direction: column; } .ck-btn { width: 100%; } .ck-tech { font-size: 11.5px; } }
+
+/* Cookie lišta – kompaktní (cca poloviční výška): první úroveň v jednom řádku text + tlačítka */
+.ck-inner { padding: 10px 24px; display: flex; flex-wrap: wrap; align-items: center; gap: 8px 24px; }
+.ck-l1 { flex: 1 1 420px; min-width: 0; }
+.ck-bar h2 { display: inline; margin: 0 6px 0 0; font: 600 13px/1.5 var(--font-sans); }
+.ck-l1 p { display: inline; font-size: 12.5px; line-height: 1.5; }
+.ck-actions { margin-top: 0; gap: 8px; flex: 0 0 auto; }
+.ck-btn { min-width: 118px; height: 32px; padding: 0 14px; border-radius: 7px; font-size: 12.5px; }
+.ck-bar.is-l2 .ck-inner { display: block; padding: 14px 24px 20px; }
+.ck-bar.is-l2 .ck-actions { margin-top: 12px; }
+.ck-l2 { margin-top: 10px; padding-top: 12px; flex-basis: 100%; }
+.ck-cat { padding: 10px 12px; }
+@media (max-width: 700px) {
+  .ck-inner { padding: 10px 12px 12px; gap: 8px; }
+  .ck-l1 { flex-basis: 100%; }
+  .ck-l1 p { font-size: 12px; }
+  .ck-actions { flex-direction: row; flex: 1 1 100%; display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+  .ck-btn { width: auto; min-width: 0; height: 34px; padding: 0 6px; font-size: 12px; }
+  .ck-bar.is-l2 .ck-inner { padding: 12px 12px 20px; }
+  .ck-bar.is-l2 .ck-actions { grid-template-columns: 1fr 1fr; }
+  .ck-bar.is-l2 [data-ck-act="save"] { grid-column: 1 / -1; order: 3; }
+}
