@@ -187,7 +187,7 @@
       statusEl.className = 'a-status is-error';
       statusEl.textContent = err.message === 'not-configured'
         ? 'Odesílání zatím není propojené s CRM. Zkuste to prosím později.'
-        : 'Žádost se nepodařilo odeslat. Zkontrolujte připojení a zkuste to znovu.';
+        : 'Žádost se nepodařilo odeslat. Zkuste to prosím znovu nebo napište na info@selectclub.cz.';
     }
   });
 

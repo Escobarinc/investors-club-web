@@ -37,12 +37,21 @@
       if (r && r.error) throw new Error(r.error);
       return;
     }
-    // text/plain + no-cors: požadavek dojde do CRM i bez CORS hlaviček (odpověď prohlížeč nepřečte).
-    await fetch(CRM.origin + '/api/t/lead', {
-      method: 'POST', mode: 'no-cors', keepalive: true,
-      headers: { 'Content-Type': 'text/plain' },
-      body: JSON.stringify(body)
-    });
+    // text/plain = jednoduchý požadavek bez preflightu; CRM má pro /api/t/* zapnuté CORS, takže odpověď přečteme.
+    let res;
+    try {
+      res = await fetch(CRM.origin + '/api/t/lead', {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain' },
+        body: JSON.stringify(body)
+      });
+    } catch (e) { throw new Error('network'); }
+    let json = null;
+    try { json = await res.json(); } catch (e) { /* odpověď bez JSON */ }
+    if (!res.ok || !json || json.error || json.ok === false) {
+      throw new Error((json && json.error) || ('http-' + res.status));
+    }
+    return json;
   };
   // Měřicí kód CRM (návštěvy, scroll, kliky, odkud lidé přišli) je analytická technologie –
   // načte ho až cookies.js po souhlasu s analytickými cookies. Poptávky se posílají i bez souhlasu.

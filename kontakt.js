@@ -98,7 +98,7 @@
       btn.disabled = false;
       st.textContent = err.message === 'not-configured'
         ? 'Odesílání zatím není propojené s CRM. Zkuste to prosím později.'
-        : 'Zprávu se nepodařilo odeslat. Zkontrolujte připojení a zkuste to znovu.';
+        : 'Zprávu se nepodařilo odeslat. Zkuste to prosím znovu nebo napište na info@selectclub.cz.';
     }
   });
 })();
